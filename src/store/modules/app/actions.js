@@ -78,7 +78,7 @@ function watchScroll(store) {
         }
       }
       initialOffset = window.scrollY
-      yield timeout(500)
+      yield timeout(500) // wait 500ms before resuming the while loop
     }
   })
 }
@@ -87,7 +87,7 @@ export default {
   initApp: store => {
     console.log('starting app', this)
     window.addEventListener('resize', () => store.dispatch('handleResize'))
-    window.addEventListener('scroll', watchScroll(store), 'once')
+    watchScroll(store)
     store.dispatch('appReady')
   },
   appReady(store) {

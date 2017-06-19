@@ -1,4 +1,4 @@
-function state() {
+export default function() {
   return {
     calendars: {
       1: {
@@ -47,8 +47,9 @@ function state() {
     },
     entriesList: [],
     viewType: 'month',
-    firstWeekDay: 'monday'
+    firstWeekDay: 'monday',
+    currentYear: new Date(Date.now()).getYear(),
+    currentMonth: new Date(Date.now()).getMonth(),
+    currentDay: new Date(Date.now()).getDay()
   }
 }
-
-export default state

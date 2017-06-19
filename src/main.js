@@ -8,6 +8,7 @@ import store from './store'
 import App from './App'
 
 import Welcome from '@/views/Welcome'
+import Calendar from '@/views/Calendar'
 import VueLinks from '@/views/VueLinks'
 
 Vue.use(VueResource)
@@ -21,6 +22,10 @@ const routes = [
     path: '/',
     name: 'Welcome',
     component: Welcome
+  }, {
+    path: '/calendar',
+    name: 'Calendar',
+    component: Calendar
   }, {
     path: '/vue-links',
     name: 'VueLinks',

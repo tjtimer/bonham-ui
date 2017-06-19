@@ -5,7 +5,6 @@ import * as types from '../../mutation_types'
 const sidebarListener = chan()
 const sidebarMixer = operations.mix(sidebarListener)
 operations.mix.add(sidebarMixer, channels.sidebar)
-operations.mix.add(sidebarMixer, channels.app)
 
 function watchSidebars(store) {
   go(function* () {

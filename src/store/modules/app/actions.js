@@ -1,19 +1,34 @@
-import { chan, putAsync, timeout, go, operations } from 'js-csp'
-import channels from '../../channels'
+import { put, timeout, go } from 'js-csp'
+import channels from './channels'
 import * as types from '../../mutation_types'
 import * as fn from '../../../utils/functions'
 
 const watcherTimeout = parseFloat(1000 / 60)
 
 function watchResize(store) {
-  let [initial, actual] = [store.state.size, [0, 0]]
   go(function* () {
-    while (1) {
+    let [initial, actual] = [store.state.size, [0, 0]]
+    store.commit(types.APP_RESIZE_START)
+    yield put(
+      channels.resizeChannel,
+      {
+        topic: 'resize',
+        action: 'start'
+      }
+    )
+    while (store.state.isResizing) {
       initial = fn.getElementSize(window)
       yield timeout(watcherTimeout)
       actual = fn.getElementSize(window)
       if (initial[0] === actual[0] && initial[1] === actual[1]) {
         store.commit(types.APP_RESIZE_STOP)
+        yield put(
+          channels.resizeChannel,
+          {
+            topic: 'resize',
+            action: 'stop'
+          }
+        )
         return store.commit(types.APP_SET_SIZE, fn.getElementSize(window))
       }
       store.commit(types.APP_SET_SIZE, fn.getElementSize(window))
@@ -22,55 +37,69 @@ function watchResize(store) {
 }
 
 function watchScroll(store) {
-  let initialOffset = store.state.scrollY
+  let initialOffset
   go(function* () {
-    while (1) {
-      initialOffset = window.scrollY
-      yield timeout(watcherTimeout)
-      if (initialOffset === window.scrollY) {
-        store.commit(types.APP_SCROLL_STOP)
-        return store.commit(types.APP_SET_SCROLL_Y, window.scrollY)
-      } else if (store.state.scrollDirection !== 'up' && initialOffset > window.scrollY) {
-        store.commit(types.APP_SET_SCROLL_DIRECTION, 'up')
-        store.commit(types.APP_SET_SCROLL_Y, window.scrollY)
-      } else if (store.state.scrollDirection !== 'down' && initialOffset < window.scrollY) {
-        store.commit(types.APP_SET_SCROLL_DIRECTION, 'down')
-        store.commit(types.APP_SET_SCROLL_Y, window.scrollY)
+    initialOffset = store.state.scrollY
+    while (true) {
+      if (!store.state.isScrolling) {
+        if (initialOffset !== window.scrollY) {
+          console.log('scroll start')
+          store.commit(types.APP_SCROLL_START)
+          yield put(
+            channels.scrollChannel,
+            'start'
+          )
+        }
+      } else {
+        if (initialOffset === window.scrollY) {
+          console.log('scroll stop')
+          yield put(
+            channels.scrollChannel,
+            'stop'
+          )
+          store.commit(types.APP_SET_SCROLL_Y, window.scrollY)
+          store.commit(types.APP_SCROLL_STOP)
+        } else if (store.state.scrollDirection !== 'up' && initialOffset > window.scrollY) {
+          console.log('scroll up')
+          store.commit(types.APP_SET_SCROLL_DIRECTION, 'up')
+          yield put(
+            channels.scrollChannel,
+            'up'
+          )
+          initialOffset = window.scrollY
+          store.commit(types.APP_SET_SCROLL_Y, initialOffset)
+        } else if (store.state.scrollDirection !== 'down' && initialOffset < window.scrollY) {
+          console.log('scroll down')
+          store.commit(types.APP_SET_SCROLL_DIRECTION, 'down')
+          yield put(
+            channels.scrollChannel,
+            'down'
+          )
+          initialOffset = window.scrollY
+          store.commit(types.APP_SET_SCROLL_Y, initialOffset)
+        }
       }
+      initialOffset = window.scrollY
+      yield timeout(500)
     }
   })
 }
 
-const appListener = chan()
-const appMixer = operations.mix(appListener)
-operations.mix.add(appMixer, channels.app)
-
 export default {
-  initApp({ dispatch }) {
-    console.log('starting app')
-    window.addEventListener('scroll', () => dispatch('handleScroll'))
-    window.addEventListener('resize', () => dispatch('handleResize'))
-    dispatch('appReady')
+  initApp: store => {
+    console.log('starting app', this)
+    window.addEventListener('resize', () => store.dispatch('handleResize'))
+    window.addEventListener('scroll', watchScroll(store), 'once')
+    store.dispatch('appReady')
   },
   appReady(store) {
     store.commit(types.APP_READY)
-    putAsync(
-      channels.notifications,
-      {
-        messageType: 'info',
-        title: 'App Ready',
-        body: 'You\'re App is now ready!'
-      }
-    )
   },
   handleScroll(store) {
-    if (store.state.isScrolling === true) { return }
-    store.commit(types.APP_SCROLL_START)
     watchScroll(store)
   },
   handleResize(store) {
     if (store.state.isResizing === true) { return }
-    store.commit(types.APP_RESIZE_START)
     watchResize(store)
   },
   addHeartbeat(store, payload) {
@@ -82,12 +111,5 @@ export default {
   },
   changeLocale(store, locale) {
     store.commit(types.APP_CHANGE_LOCALE, locale)
-    putAsync(
-      channels.app,
-      {
-        type: types.APP_CHANGE_LOCALE,
-        payload: locale
-      }
-    )
   }
 }

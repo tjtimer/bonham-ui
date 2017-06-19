@@ -1,9 +1,7 @@
 <template lang="pug">
   div(class="calendar")
-    div(class="header")
-      calendar-menu(:view="calendar.viewType" :current="calendar.currentMonth")
-    div(class="body")
-      month-view(v-if="calendar.viewType === 'month'")
+    calendar-menu
+    month-view(v-if="calendar.viewType === 'month'")
 </template>
 <script>
 import { mapState } from 'vuex'

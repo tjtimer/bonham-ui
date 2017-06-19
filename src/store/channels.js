@@ -25,15 +25,32 @@
 *   to publish something to a channel
 *   putAsync(channels.<anyChannel>, <MyPayload>)
 */
-import { chan } from 'js-csp'
+import { chan, go, put, putAsync, take } from 'js-csp'
 
-const app = chan() // payload: {}
+const listenToElement = (el, type) => {
+  const ch = chan()
+  el.addEventListener(type, e => putAsync(ch, e))
+  return ch
+}
+
+const app = chan() // payload: {topic, action}
 const header = chan() // payload: {}
 const notifications = chan()  // payload: {title, body, messageType}
 const log = chan()  // payload: {sourceName, logLevel, message}
 const sidebar = chan()  // payload: {side}
-
+const createChannel = (action, store) => {
+  const ch = chan()
+  go(function* () {
+    while (true) {
+      const value = yield take(ch)
+      yield put(app, action(store.get(), value))
+    }
+  })
+  return ch
+}
 export default {
+  listenToElement,
+  createChannel,
   app,
   header,
   notifications,

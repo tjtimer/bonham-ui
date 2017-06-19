@@ -66,10 +66,6 @@ function watchScroll(store) {
             channels.scrollChannel,
             'up'
           )
-<<<<<<< HEAD
-=======
-          initialOffset = window.scrollY
->>>>>>> 6472fe3f15e69b0472823ad252859bb50b5c3c4e
           store.commit(types.APP_SET_SCROLL_Y, initialOffset)
         } else if (store.state.scrollDirection !== 'down' && initialOffset < window.scrollY) {
           console.log('scroll down')
@@ -78,19 +74,11 @@ function watchScroll(store) {
             channels.scrollChannel,
             'down'
           )
-<<<<<<< HEAD
-=======
-          initialOffset = window.scrollY
->>>>>>> 6472fe3f15e69b0472823ad252859bb50b5c3c4e
           store.commit(types.APP_SET_SCROLL_Y, initialOffset)
         }
       }
       initialOffset = window.scrollY
-<<<<<<< HEAD
       yield timeout(500) // wait 500ms before resuming the while loop
-=======
-      yield timeout(500)
->>>>>>> 6472fe3f15e69b0472823ad252859bb50b5c3c4e
     }
   })
 }
@@ -99,11 +87,7 @@ export default {
   initApp: store => {
     console.log('starting app', this)
     window.addEventListener('resize', () => store.dispatch('handleResize'))
-<<<<<<< HEAD
     watchScroll(store)
-=======
-    window.addEventListener('scroll', watchScroll(store), 'once')
->>>>>>> 6472fe3f15e69b0472823ad252859bb50b5c3c4e
     store.dispatch('appReady')
   },
   appReady(store) {

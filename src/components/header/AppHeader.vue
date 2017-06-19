@@ -1,5 +1,5 @@
 <template lang="pug">
-  header(:class="appLayout && app.scrollY > 250 ? 'sticky' : ''")
+  header(:class="appLayout && header.isHidden ? 'hidden' : 'visible' && app.scrollY > 250 ? 'sticky' : ''")
     toggle-sidebar(class="open" side="left" sym="chevron_right" @toggleSidebar="toggleSidebar")
     div(class="logo")
       router-link(:to="this.$router.options.base")
@@ -25,7 +25,7 @@ export default {
   },
   props: ['appLayout'],
   computed: {
-    ...mapState(['app'])
+    ...mapState(['app', 'header'])
   },
   methods: {
     ...mapActions({

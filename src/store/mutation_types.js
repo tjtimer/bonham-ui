@@ -14,6 +14,7 @@ export const APP_CHANGE_LOCALE = 'APP_CHANGE_LOCALE'
 /** header */
 export const HEADER_READY = 'HEADER_READY'
 export const HEADER_HIDE = 'HEADER_HIDE'
+export const HEADER_SHOW = 'HEADER_SHOW'
 export const HEADER_SET_BACKGROUND = 'HEADER_SET_BACKGROUND'
 
 /** sidebar */

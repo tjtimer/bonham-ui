@@ -1,16 +1,20 @@
 <template lang="pug">
   div(class="calendar calendar-menu")
-    h3 {{ view }} - View
-    div(class="calendar switch" :class="view")
+    h3 {{ calendar.viewType }} - View
+    div(class="calendar switch" :class="calendar.viewType")
       button(class="previous material-icons" @click="previous") chevron_left
-      span(class="viewing" :class="view") {{ current }}
+      span(v-if="calendar.viewType === 'day'" class="current current-day") {{ calendar.currentDay }}.
+      span(class="current current-month") {{ calendar.monthNames[calendar.currentMonth] }}.
+      span(class="current current-Year") {{ calendar.currentYear }}
       button(class="next material-icons" @click="next") chevron_right
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'calendar-menu',
-  props: ['view', 'current'],
+  computed: {
+    ...mapState(['calendar'])
+  },
   methods: {
     ...mapActions({
       previous: 'calendar/previous',
@@ -19,3 +23,11 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.calendar-menu {
+  h3,
+  .current-month {
+    text-transform: capitalize;
+  }
+}
+</style>

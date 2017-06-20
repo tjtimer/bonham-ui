@@ -1,11 +1,11 @@
 <template lang="pug">
-  header(:class="appLayout && header.isHidden ? 'hidden' : 'visible' && app.scrollY > 250 ? 'sticky' : ''")
+  header(:class="addClass && header.isHidden ? 'hidden' : ''")
     toggle-sidebar(class="open" side="left" sym="chevron_right" @toggleSidebar="toggleSidebar")
     div(class="logo")
       router-link(:to="this.$router.options.base")
         img(src="../../assets/neume-logo.png")
     div(class="navigation")
-      navBar
+      nav-bar
     div(class="account")
       account
     toggle-sidebar(class="open" side="right" sym="chevron_left" @toggleSidebar="toggleSidebar")
@@ -23,7 +23,7 @@ export default {
     account,
     ToggleSidebar
   },
-  props: ['appLayout'],
+  props: ['addClass'],
   computed: {
     ...mapState(['app', 'header'])
   },
@@ -87,6 +87,10 @@ header {
       flex: 0 1 100%;
       justify-content: space-between;
     }
+  }
+  &.hidden {
+    padding-top: 245px;
+    visibility: hidden;
   }
   &.sticky {
     padding-top: 245px;

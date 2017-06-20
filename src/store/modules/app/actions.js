@@ -84,8 +84,8 @@ function watchScroll(store) {
 }
 
 export default {
-  initApp: store => {
-    console.log('starting app', this)
+  initApp(store) {
+    console.log('starting app', store)
     window.addEventListener('resize', () => store.dispatch('handleResize'))
     watchScroll(store)
     store.dispatch('appReady')

@@ -5,11 +5,11 @@ import VueResource from 'vue-resource'
 import Router from 'vue-router'
 import store from './store'
 
-import App from './App'
+import App from '@/components/App'
 
-import Welcome from '@/views/Welcome'
-import Calendar from '@/views/Calendar'
-import VueLinks from '@/views/VueLinks'
+import Welcome from '@/components/views/Welcome'
+import Calendar from '@/components/views/Calendar'
+import VueLinks from '@/components/views/VueLinks'
 
 Vue.use(VueResource)
 Vue.use(Router)

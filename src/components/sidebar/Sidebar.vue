@@ -3,7 +3,7 @@ transition(name="fade" appear)
   div(class="sidebar" :class="(side === 'right') ? 'sidebar-right' : 'sidebar-left'")
     div(class="sidebar-headline")
       h2 Sidebar {{ side }}
-      toggle-sidebar(:side="side" class="close" sym="close" @toggleSidebar="toggleSidebar")
+      button(class="material-icons close" @click="toggleSidebar(side)") close
     div(class="sidebar-content")
       div(class="sidebar-c-1")
         slot(name="sidebar-c-1")
@@ -14,13 +14,9 @@ transition(name="fade" appear)
 </template>
 <script>
 import { mapActions } from 'vuex'
-import ToggleSidebar from './ToggleSidebar'
 export default {
   name: 'sidebar',
   props: ['side'],
-  components: {
-    ToggleSidebar
-  },
   methods: {
     ...mapActions({
       toggleSidebar: 'sidebar/toggleSidebar'

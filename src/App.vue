@@ -1,6 +1,6 @@
 <template lang="pug">
 div(id="app" :class="appLayout")
-  app-header(:addClass="appLayout && $store.state.app.scrollY > 250 ? 'sticky' : ''")
+  app-header(:headerClass="appLayout && $store.state.app.scrollY > 250 ? 'sticky' : ''")
   router-view
   sidebar(v-show="showSidebarLeft" side="left")
     nav-bar(slot="sidebar-c-1")

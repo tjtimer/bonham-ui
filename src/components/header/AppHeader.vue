@@ -1,6 +1,6 @@
 <template lang="pug">
-  header(:class="addClass && header.isHidden ? 'hidden' : ''")
-    toggle-sidebar(class="open" side="left" sym="chevron_right" @toggleSidebar="toggleSidebar")
+  header(:class="headerClass")
+    button(class="toggle-sidebar material-icons" @click="toggleSidebar('left')") menu
     div(class="logo")
       router-link(:to="this.$router.options.base")
         img(src="../../assets/neume-logo.png")
@@ -8,22 +8,20 @@
       nav-bar
     div(class="account")
       account
-    toggle-sidebar(class="open" side="right" sym="chevron_left" @toggleSidebar="toggleSidebar")
+    button(class="toggle-sidebar material-icons" @click="toggleSidebar('right')") menu
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import navBar from './NavBar'
 import account from '@/components/account/Account'
-import ToggleSidebar from '@/components/sidebar/ToggleSidebar'
 
 export default {
   name: 'app-header',
   components: {
     navBar,
-    account,
-    ToggleSidebar
+    account
   },
-  props: ['addClass'],
+  props: ['headerClass'],
   computed: {
     ...mapState(['app', 'header'])
   },
@@ -53,6 +51,7 @@ header {
   flex-flow: wrap;
   align-items: stretch;
   justify-content: space-around;
+  text-align: center;
   padding-bottom: 0.3em;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
   .logo {
@@ -72,11 +71,12 @@ header {
     align-items: center;
     justify-content: center;
   }
-  .open {
+  .toggle-sidebar {
     position: relative;
-    display: flex;
-    flex: 1 1 5%;
+    display: block;
+    flex: 0 1 60px;
     color: $secondary;
+    font-size: 36px;
   }
   @media(max-width: 725px) {
     .logo {
@@ -95,6 +95,8 @@ header {
   &.sticky {
     padding-top: 245px;
     background: rgba($secondary, 0.3);
+    flex-flow: nowrap;
+    font-size: 0.8em;
     a , button {
       color: $dark;
     }
@@ -107,6 +109,9 @@ header {
     }
     .account {
       order: 0;
+    }
+    .toggle-sidebar {
+      flex: 1 1 46px;
     }
   }
 }

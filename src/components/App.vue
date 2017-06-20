@@ -1,11 +1,11 @@
 <template lang="pug">
 div(id="app" :class="appLayout")
   app-header
-  router-view
+  router-view(class="main")
   sidebar(v-if="showSidebarLeft" side="left")
     nav-bar(slot="sidebar-c-1")
   sidebar(v-if="showSidebarRight" side="right")
-    notifications(slot="sidebar-c-1")
+    notifications-history(slot="sidebar-c-1")
     div(slot="sidebar-c-2")
       p Hello My Dear
   app-footer(:time="now")
@@ -28,7 +28,7 @@ import NavBar from '@/components/header/NavBar'
 import Sidebar from '@/components/sidebar/Sidebar'
 import AppFooter from '@/components/footer/AppFooter'
 import Notification from '@/components/notification/Notification'
-import Notifications from '@/components/notification/Notifications'
+import NotificationsHistory from '@/components/notification/NotificationsHistory'
 import Registration from '@/components/account/Registration'
 
 export default {
@@ -39,7 +39,7 @@ export default {
     Sidebar,
     AppFooter,
     Notification,
-    Notifications,
+    NotificationsHistory,
     Registration
   },
   computed: {
@@ -67,40 +67,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/colors';
-body {
-  background-color: $dark;
-  overflow-x: hidden;
-  font: 500 24px/32px 'Teko', Arial, sans-serif;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-h1, h2 {
-  font: {
-    family: 'Work Sans', sans-serif;
-    weight: 700;
-    size: 24px;
-    variant: small-caps;
-  }
-}
-a, button, [type="submit"] {
-  display: block;
-  background: none;
-  color: $secondary;
-  flex: 1 1 auto;
-  text-transform: capitalize;
-  text-decoration: none;
-  font-variant: small-caps;
-  cursor: pointer;
-  &:hover {
-    color: lighten($secondary, 20%);
-    box-shadow: 0 2px 3px rgba($dark, 0.3);
-  }
-}
-.material-icons {
-  text-transform: none;
-  font-variant: normal;
-}
+@import '../assets/base';
+
 #app {
   position: relative;
   display: grid;
@@ -109,29 +77,13 @@ a, button, [type="submit"] {
   text-align: center;
   color: $primary;
   border: none;
-  .close {
-    background: $dark;
-    border-radius: 2px;
-    border: 2px solid transparent;
-    &:hover {
-      background: lighten($dark, 5%);
-    }
+  .notifications-active {
+    position: fixed;
+    top: 13%;
+    right: 6%;
+    display: flex;
+    flex-flow: column;
+    padding: 3px 6px;
   }
-}
-
-
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  filter: invert(75%) contrast(1.5);
-}
-.notifications-active {
-  position: fixed;
-  top: 13%;
-  right: 6%;
-  display: flex;
-  flex-flow: column;
-  width: 88%;
 }
 </style>

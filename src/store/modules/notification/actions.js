@@ -6,19 +6,22 @@ const notificationsListener = chan()
 const notificationsMixer = operations.mix(notificationsListener)
 operations.mix.add(notificationsMixer, channels.notifications)
 
+function listen(store) {
+  go(function* () {
+    let notification
+    while (notification !== CLOSED) {
+      notification = yield notificationsListener
+      const _id = Date.now()
+      const created = new Date(_id)
+      const newNotification = {...notification, id: _id, created: created, status: 'unread'}
+      store.commit(types.NOTIFICATION_ADD, newNotification)
+      setTimeout(() => store.dispatch('notificationRemoveFromActive', _id), 8000)
+    }
+  })
+}
 export default {
   initNotifications(store) {
-    go(function* () {
-      let notification
-      while (notification !== CLOSED) {
-        notification = yield notificationsListener
-        const _id = Date.now()
-        const created = new Date(_id)
-        const newNotification = {...notification, id: _id, created: created, status: 'unread'}
-        store.commit(types.NOTIFICATION_ADD, newNotification)
-        setTimeout(() => store.dispatch('notificationRemoveFromActive', _id), 8000)
-      }
-    })
+    listen(store)
   },
   notificationsShow({ commit, state }, filter) {
     commit(types.NOTIFICATIONS_SET_FILTER, filter)

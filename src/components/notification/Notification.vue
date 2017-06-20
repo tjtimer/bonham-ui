@@ -1,11 +1,11 @@
 <template lang="pug">
   div(class="notification" :class="note.messageType")
-    div(class="notification-header")
-      h3 {{ note.title }} {{ note.id }}
-    div(class="notification-body")
+    div(class="header")
+      h3 {{ note.title }}
+    div(class="body")
       p {{ note.body }}
-        span(class="notification-created")  {{ note.created }}
-    div(class="notification-menu")
+      p(class="created") created: {{ note.created }}
+    div(class="menu")
       button(@click="$emit('notificationSetStatus', {id: note.id, status: (note.status === 'read') ? 'unread' : 'read'})") mark as {{ note.status === 'read' ? 'unread' : 'read'}}
       button(v-if="note.status !== 'archived'" @click="$emit('notificationSetStatus', {id: note.id, status: 'archived'})") add to archive
       button(@click="$emit('notificationDelete', note.id)") delete
@@ -27,26 +27,17 @@
     background: $info;
     color: $dark;
     border-radius: 12px;
+    margin-bottom: 3px;
     h3 {
       padding: 0.5em;
     }
-    &.error {
-      background: $error;
-      color: $bright;
-    }
-    &.warning {
-      background: $warning;
-      color: #014;
-    }
-    &.notification-body {
-      font-size: 22px;
-      line-height: 32px;
-      .notification-created {
+    .body {
+      font-size: 24px;
+      .created {
         font-size: 12px;
-        line-height: 18px;
       }
     }
-    .notification-menu {
+    .menu {
       display: flex;
       flex-flow: nowrap;
       align-items: stretch;

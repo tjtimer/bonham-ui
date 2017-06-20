@@ -16,7 +16,7 @@ import { mapState, mapActions } from 'vuex'
 import Notification from '@/components/notification/Notification'
 import NotificationsMenu from '@/components/notification/NotificationsMenu'
 export default {
-  name: 'notifications',
+  name: 'notifications-history',
   components: {
     Notification,
     NotificationsMenu

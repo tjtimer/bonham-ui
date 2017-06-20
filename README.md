@@ -11,6 +11,10 @@ Project Structure:
     - src (actual project)
         - assets (global scss, e.g. colors.scss)
         - components (only *.vue files)
+        - store
+            - modules
+            - mutation_types.js (contains all mutation types)
+            - index.js
         - utils (validators and other helper functions)
         - main.js
     - static (manifest.json, images, etc.)

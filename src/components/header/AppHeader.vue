@@ -1,5 +1,5 @@
 <template lang="pug">
-  header(:class="headerClass")
+  header(:class="header.classes")
     button(class="toggle-sidebar material-icons" @click="toggleSidebar('left')") menu
     div(class="logo")
       router-link(:to="this.$router.options.base")
@@ -21,7 +21,6 @@ export default {
     navBar,
     account
   },
-  props: ['headerClass'],
   computed: {
     ...mapState(['app', 'header'])
   },
@@ -40,9 +39,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../assets/colors';
-* {
-  transition: all 0.2s;
-}
 header {
   position: sticky;
   top: -250px;
@@ -53,7 +49,7 @@ header {
   justify-content: space-around;
   text-align: center;
   padding-bottom: 0.3em;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 3px rgba(black, 0.5);
   .logo {
     display: flex;
     flex: 1 3 15%;

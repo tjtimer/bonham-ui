@@ -1,6 +1,7 @@
 <template lang="pug">
   div(class="notifications-menu")
-    input(type="button" value="notifications" @click="notificationsToggleAll")
+    button(@click="notificationsToggleAll")
+      h4 notifications
     div(v-if="notificationsShowStats" class="notifications-count")
       ul(class="notifications-count-table")
         li

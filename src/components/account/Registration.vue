@@ -108,20 +108,15 @@ export default {
   }
   fieldset {
     flex: 0 1 100%;
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
     border: none;
     color: $dark;
     text-align: left;
     margin-bottom: 3px;
     input {
-      display: block;
-      width: 100%;
-      border: 1px solid red;
-      padding: 4px;
+      border: 1px solid $error;
+      padding: 2px;
       &.valid {
-        border: 1px solid yellow,
+        border: 1px solid $primary,
       }
     }
   }
@@ -132,18 +127,19 @@ export default {
       position: absolute;
       content: "";
       top: -290%;
-      left: -266.66667%;
+      left: 50%;
       padding: 0;
       font-size: 0;
       background: rgba(0, 0, 0, 0);
       color: rgba($secondary, 0);
-      transition: all 0.5s ease-in-out;
+      transition: all 0.3s ease-in-out;
       z-index: 0;
     }
     &:hover::after {
       content: "Password must be at least 8 characters long. It must contain upper- and lowercase letters, digits and special characters.";
-      top: 100%;
-      left: 0;
+      top: 110%;
+      left: calc(-100%/3);
+      right: calc(-100%/3);
       background: rgba($bright, 1);
       color: rgba($dark, 1);
       padding: 0.3em;

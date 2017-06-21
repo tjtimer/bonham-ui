@@ -1,18 +1,18 @@
 <template lang="pug">
-div(id="app" :class="appLayout")
+div(id="app" :class="app.size[0] > app.size[1] ? 'landscape' : 'portrait'")
   app-header
   router-view(class="main")
-  sidebar(v-if="showSidebarLeft" side="left")
+  sidebar(v-if="sidebar.showSidebarLeft" side="left")
     nav-bar(slot="sidebar-c-1")
-  sidebar(v-if="showSidebarRight" side="right")
+  sidebar(v-if="sidebar.showSidebarRight" side="right")
     notifications-history(slot="sidebar-c-1")
     div(slot="sidebar-c-2")
       p Hello My Dear
-  app-footer(:time="now")
-  registration(v-if="showRegistration")
+  app-footer(:time="app.now")
+  registration(v-if="account.showRegistration")
   notification(
     class="notifications-active"
-    v-if="activeNotificationsShow"
+    v-if="notification.notificationsActiveList.length > 0"
     v-for="(note, index) in activeNotificationsSet"
     :note="note" :key="note.id"
     @notificationSetStatus="notificationSetStatus"
@@ -43,13 +43,8 @@ export default {
     Registration
   },
   computed: {
+    ...mapState(['app', 'account', 'notification', 'sidebar']),
     ...mapState({
-      appLayout: state => state.app.size[0] > state.app.size[1] ? 'landscape' : 'portrait',
-      showSidebarLeft: state => state.sidebar.showSidebarLeft,
-      showSidebarRight: state => state.sidebar.showSidebarRight,
-      showRegistration: state => state.account.showRegistration,
-      now: state => state.app.now,
-      activeNotificationsShow: state => state.notification.notificationsActiveList.length > 0,
       activeNotificationsSet: state => state.notification.notificationsActiveList.map(noteId => state.notification.notifications[noteId])
     })
   },

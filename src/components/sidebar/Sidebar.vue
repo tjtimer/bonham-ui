@@ -72,17 +72,11 @@ export default {
       align-items: center;
       justify-content: center;
       flex: 1 1 10%;
-      &.close {
-        position: relative;
-        display: block;
-        flex: 1 1 10%;
-        button {
-          transform: rotate(180deg);
-        }
-      }
-      .material-icons {
-        font-size: 36px;
-      }
+    }
+    .close {
+      position: relative;
+      display: block;
+      flex: 1 1 10%;
     }
   }
   .sidebar-content {

@@ -1,11 +1,11 @@
 <template lang="pug">
   div(class="registration-overlay")
     div(class="registration-wrapper")
-      h4 {{ account.formActive }}
+      h2(class="form-active") {{ account.formActive }}
       button(@click="toggleAccount" class="material-icons close") close
       div(class="switch-wrapper")
-        button(@click="switchForms('login')" :disabled="account.formActive === 'login'") Log In
-        button(@click="switchForms('signup')" :disabled="account.formActive === 'signup'") Sign Up
+        button(class="switch" @click="switchForms('login')" :disabled="account.formActive === 'login'") Log In
+        button(class="switch" @click="switchForms('signup')" :disabled="account.formActive === 'signup'") Sign Up
       form(class="registration-form" role="form" @submit.prevent="submitForm")
         fieldset(class="email")
           label Email:
@@ -16,9 +16,9 @@
         fieldset(v-if="account.formActive !== 'login'" class="password")
           label Password again:
           input(type="password" v-model="account.password2" :class="account.isValidPassword2 ? 'valid' : 'invalid'")
-        fieldset(class="submit")
-          button(type="reset") reset
-          button(type="submit" @submit.prevent="submitForm") ok
+        div(class="reset-submit-wrapper")
+          button(class="reset-submit" type="reset") reset
+          button(class="reset-submit" type="submit" @submit.prevent="submitForm") ok
 </template>
 
 <script>
@@ -62,19 +62,27 @@ export default {
   background: $secondary;
   color: $dark;
   padding: 0.5em;
-  h4 {
+  .form-active {
     flex: 1 1 100%;
     align-self: stretch;
     text-transform: capitalize;
     text-align: left;
     font: {
+      family: Helvetica, sans-serif;
       variant: small-caps;
       size: 1.5em;
     }
   }
-  button {
+  .switch-wrapper,
+  .reset-submit-wrapper {
+    display: flex;
+    flex: 0 1 100%;
+    flex-flow: nowrap;
+  }
+  .switch,
+  .reset-submit {
     background: $dark;
-    padding: 3px 6px;
+    padding: 0.5em;
     &:disabled {
       background: darken($dark, 10%);
       color: lighten($dark, 20%);
@@ -89,7 +97,7 @@ export default {
     text-transform: none;
     font-variant: normal;
   }
-  form {
+  .registration-form {
     display: flex;
     flex: 1 1 100%;
     flex-flow: column;
@@ -116,12 +124,6 @@ export default {
         border: 1px solid yellow,
       }
     }
-  }
-  .switch-wrapper,
-  .submit {
-    display: flex;
-    flex: 0 1 100%;
-    flex-flow: nowrap;
   }
   .password {
     position: relative;

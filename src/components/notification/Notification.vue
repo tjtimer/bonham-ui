@@ -6,30 +6,40 @@
       p {{ note.body }}
       p(class="created") created: {{ note.created }}
     div(class="menu")
-      button(@click="$emit('notificationSetStatus', {id: note.id, status: (note.status === 'read') ? 'unread' : 'read'})") mark as {{ note.status === 'read' ? 'unread' : 'read'}}
-      button(v-if="note.status !== 'archived'" @click="$emit('notificationSetStatus', {id: note.id, status: 'archived'})") add to archive
-      button(@click="$emit('notificationDelete', note.id)") delete
+      button(@click="notificationSetStatus({id: note.id, status: (note.status === 'read') ? 'unread' : 'read'})") mark as {{ note.status === 'read' ? 'unread' : 'read'}}
+      button(v-if="note.status !== 'archived'" @click="notificationSetStatus({id: note.id, status: 'archived'})") add to archive
+      button(@click="notificationDelete(note.id)") delete
 </template>
 <script>
-  export default {
-    name: 'notification',
-    props: ['note']
+import { mapActions } from 'vuex'
+export default {
+  name: 'notification',
+  props: ['note'],
+  methods: {
+    ...mapActions({
+      notificationSetStatus: 'notification/notificationSetStatus',
+      notificationDelete: 'notification/notificationDelete'
+    })
   }
+}
 </script>
 <style lang="scss" scoped>
-@import '../../assets/colors';
+@import '../../assets/helpers/_placeholders';
+@import '../../assets/components/_buttons';
   .notification {
+    @extend %primary-color-combination;
     position: relative;
     display: flex;
     flex-flow: column;
     flex: 1 1 auto;
     padding: 2px 6px;
-    background: $info;
-    color: $dark;
     border-radius: 12px;
     margin-bottom: 3px;
-    h3 {
-      padding: 0.5em;
+    &.error {
+      @extend %error-color-combination;
+    }
+    &.warning {
+      @extend %error-color-combination;
     }
     .body {
       font-size: 24px;
@@ -43,17 +53,17 @@
       align-items: stretch;
       justify-content: space-around;
       padding: 0 3px 6px;
-      button {
-        display: block;
+      .button {
+        @extend %button;
         flex: 1 1 33.330%;
         font-size: 18px;
         line-height: 24px;
         margin: 2px;
         padding: 3px;
-        background: $dark;
+        background: $grey-dark;
         border-radius: 6px;
         &:hover {
-          background: lighten($dark, 5%);
+          background: lighten($grey-dark, 5%);
         }
       }
     }

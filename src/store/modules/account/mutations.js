@@ -14,6 +14,10 @@ export default {
   [types.ACCOUNT_SWITCH_FORMS](state, form) {
     state.formActive = form
   },
+  [types.ACCOUNT_UPDATE_CREDENTIALS](state, {field, value}) {
+    console.log(field, value)
+    state[field] = value
+  },
   [types.ACCOUNT_CLEAR_PASSWORDS](state) {
     state.password = state.password2 = ''
   },

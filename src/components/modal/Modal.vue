@@ -21,19 +21,17 @@
   }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/colors';
+@import '../../assets/helpers/_mixins';
+@import '../../assets/helpers/_placeholders';
 * {
   transition: all 0.5s;
 }
 .modal {
   &.modal-overlay {
+    @include flexparent(column, center, center)
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
@@ -43,11 +41,10 @@
   }
   .modal-wrapper,
   .modal-content {
+    @extend %primary-color-combination;
     position: relative;
     display: block;
     padding: .6em;
-    background-color: $secondary;
-    color: $dark;
     text-align: left;
     box-shadow: 3px 22px 35px rgba(50, 20, 0, .5);
   }

@@ -25,7 +25,6 @@ export default {
   },
   [types.APP_SCROLL_STOP](state) {
     state.isScrolling = false
-    state.scrollDirection = ''
   },
   [types.APP_ADD_HEARTBEAT](state, payload) {
     state.heartbeats = {
@@ -37,5 +36,8 @@ export default {
     const newBeats = state.heartbeats
     delete newBeats[heartbeatId]
     state.heartbeats = newBeats
+  },
+  [types.APP_UPDATE_HEATMAP](state, position) {
+    state.heatMap[position] = state.heatMap[position] === undefined ? 1 : state.heatMap[position]++
   }
 }

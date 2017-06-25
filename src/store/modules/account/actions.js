@@ -15,11 +15,18 @@ export default {
   switchForms(store, form) {
     store.commit(types.ACCOUNT_SWITCH_FORMS, form)
   },
+  updateCredentials(store, event) {
+    store.commit(types.ACCOUNT_UPDATE_CREDENTIALS, {field: event.target.name, value: event.target.value})
+    console.log(store.state)
+  },
   clearError(store) {
     store.commit(types.CLEAR_AUTHENTICATION_ERROR)
   },
-  submitForm(store) {
+  submitForm(store, event) {
     store.commit(types.AUTHENTICATION_REQUEST)
+    console.log(event)
+    const data = new FormData(event.target)
+    console.log(data.getAll())
     const credentials = {
       email: store.state.email,
       password: store.state.password

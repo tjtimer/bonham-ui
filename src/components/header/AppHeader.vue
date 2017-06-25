@@ -1,6 +1,6 @@
 <template lang="pug">
-  header(:class="header.classes")
-    button(class="toggle-sidebar material-icons" @click="toggleSidebar('left')") menu
+  div(class="header" :class="header.classes")
+    button(class="toggle-sidebar toggle-left material-icons" @click="toggleSidebar('left')") menu
     div(class="logo")
       router-link(:to="this.$router.options.base")
         img(src="../../assets/neume-logo.png")
@@ -8,7 +8,7 @@
       nav-bar
     div(class="account")
       account
-    button(class="toggle-sidebar material-icons" @click="toggleSidebar('right')") menu
+    button(class="toggle-sidebar toggle-right material-icons" @click="toggleSidebar('right')") menu
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -31,48 +31,42 @@ export default {
   },
   created() {
     this.$store.dispatch('header/initHeader')
-  },
-  destroyed() {
-    console.log('App gone down!')
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/colors';
-header {
-  position: sticky;
-  top: -250px;
-  left: 0;
-  display: flex;
-  flex-flow: wrap;
-  align-items: stretch;
-  justify-content: space-around;
+@import '../../assets/helpers/_mixins';
+@import '../../assets/helpers/_placeholders';
+@import '../../assets/layout/_grid';
+.header {
+  @extend %header-grid;
+  width: 100%;
   text-align: center;
   padding-bottom: 0.3em;
   box-shadow: 0 2px 3px rgba(black, 0.5);
   .logo {
-    display: flex;
-    flex: 1 3 15%;
-    align-items: center;
+    grid-area: logo;
+    display: block;
+    img {
+      display: block;
+      width: auto;
+      height: 100%;
+    }
   }
   .navigation {
-    display: flex;
-    flex: 1 11 55%;
-    font-size: 1.4em;
-    align-items: center;
+    grid-area: navigation;
   }
   .account {
-    display: flex;
-    flex: 1 3 15%;
-    align-items: center;
-    justify-content: center;
+    grid-area: account;
   }
   .toggle-sidebar {
-    position: relative;
     display: block;
-    flex: 0 1 60px;
-    color: $secondary;
-    font-size: 36px;
+    &.toggle-left {
+      grid-area: toggle-left;
+    }
+    &.toggle-right {
+      grid-area: toggle-right;
+    }
   }
   @media(max-width: 725px) {
     .logo {
@@ -90,11 +84,11 @@ header {
   }
   &.sticky {
     padding-top: 245px;
-    background: rgba($secondary, 0.3);
+    background: rgba($blue-light, 0.3);
     flex-flow: nowrap;
     font-size: 0.8em;
     a , button {
-      color: $dark;
+      color: $grey-dark;
     }
     .logo {
       display: none;

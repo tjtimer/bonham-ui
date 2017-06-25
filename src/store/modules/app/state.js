@@ -8,6 +8,7 @@ export default function() {
     isResizing: false,
     scrollY: 0,
     isScrolling: false,
-    scrollDirection: ''
+    scrollDirection: '',
+    heatMap: {}
   }
 }

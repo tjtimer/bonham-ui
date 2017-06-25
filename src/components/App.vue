@@ -1,35 +1,27 @@
 <template lang="pug">
-div(id="app" :class="app.size[0] > app.size[1] ? 'landscape' : 'portrait'")
-  app-header
+div(id="app" :class="`${appLayout} ${scrolling}`")
+  header
+    app-header(class="header")
   router-view(class="main")
-  sidebar(v-if="sidebar.showSidebarLeft" side="left")
-    nav-bar(slot="sidebar-c-1")
-  sidebar(v-if="sidebar.showSidebarRight" side="right")
+  sidebar(class="sidebar" v-if="sidebar.showSidebarLeft" side="left")
+  sidebar(class="sidebar" v-if="sidebar.showSidebarRight" side="right")
     notifications-history(slot="sidebar-c-1")
-    div(slot="sidebar-c-2")
-      p Hello My Dear
-  app-footer(:time="app.now")
-  registration(v-if="account.showRegistration")
-  notification(
-    class="notifications-active"
-    v-if="notification.notificationsActiveList.length > 0"
-    v-for="(note, index) in activeNotificationsSet"
-    :note="note" :key="note.id"
-    @notificationSetStatus="notificationSetStatus"
-    @notificationDelete="notificationDelete"
-    )
+  registration-overlay(v-if="account.showRegistration")
+  notifications(v-if="activeNotificationsSet.length > 0" :notificationsSet="activeNotificationsSet")
+  footer
+    app-footer(class="footer" :time="app.now")
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 import AppHeader from '@/components/header/AppHeader'
 import NavBar from '@/components/header/NavBar'
 import Sidebar from '@/components/sidebar/Sidebar'
 import AppFooter from '@/components/footer/AppFooter'
-import Notification from '@/components/notification/Notification'
+import Notifications from '@/components/notification/Notifications'
 import NotificationsHistory from '@/components/notification/NotificationsHistory'
-import Registration from '@/components/account/Registration'
+import RegistrationOverlay from '@/components/account/RegistrationOverlay'
 
 export default {
   name: 'app',
@@ -38,20 +30,16 @@ export default {
     NavBar,
     Sidebar,
     AppFooter,
-    Notification,
+    Notifications,
     NotificationsHistory,
-    Registration
+    RegistrationOverlay
   },
   computed: {
-    ...mapState(['app', 'account', 'notification', 'sidebar']),
+    ...mapState(['app', 'account', 'sidebar']),
     ...mapState({
-      activeNotificationsSet: state => state.notification.notificationsActiveList.map(noteId => state.notification.notifications[noteId])
-    })
-  },
-  methods: {
-    ...mapActions({
-      notificationSetStatus: 'notification/notificationSetStatus',
-      notificationDelete: 'notification/notificationDelete'
+      activeNotificationsSet: state => state.notification.notificationsActiveList.map(noteId => state.notification.notifications[noteId]),
+      appLayout: state => state.app.size[0] > state.app.size[1] ? 'landscape' : 'portrait',
+      scrolling: state => state.app.scrollY >= 100 ? 'scrolled' : ''
     })
   },
   // hooks
@@ -62,23 +50,24 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/base';
+@import '../assets/helpers/_variables';
+@import '../assets/layout/_grid';
 
-#app {
+body {
   position: relative;
-  display: grid;
+  display: block;
   width: 100%;
-  height: 100%;
-  text-align: center;
-  color: $primary;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+#app {
+  @extend %app-grid;
+  position: relative;
+  text-align: left;
+  background: $grey-dark;
+  color: $blue-light;
   border: none;
-  .notifications-active {
-    position: fixed;
-    top: 13%;
-    right: 6%;
-    display: flex;
-    flex-flow: column;
-    padding: 3px 6px;
-  }
 }
 </style>

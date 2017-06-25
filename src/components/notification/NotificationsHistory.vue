@@ -37,7 +37,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/colors';
+@import '../../assets/helpers/_placeholders';
+@import '../../assets/helpers/_variables';
+@import '../../assets/helpers/_mixins';
 .notifications {
   flex: 1 1 100%;
   display: flex;
@@ -48,14 +50,13 @@ export default {
   }
   .notifications-options,
   .notifications-display-options {
+    @extend %primary-color-combination;
     position: relative;
     flex: 1 1 auto;
     display: flex;
     flex-flow: nowrap;
     justify-content: flex-end;
     align-items: stretch;
-    background-color: $secondary;
-    color: $dark;
     margin: 0 6px;
     padding: 2px 6px;
     line-height: 24px;

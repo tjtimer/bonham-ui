@@ -58,7 +58,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/colors';
+@import '../../assets/helpers/_variables';
 .notifications-menu {
   display: flex;
   flex-flow: column;
@@ -80,12 +80,12 @@ export default {
         text-decoration: underline;
         background: rgba(0, 0, 0, 0.75);
         border-bottom: 1px solid black;
-        box-shadow: 1px 2px 3px rgba($dark, 0.3);
+        box-shadow: 1px 2px 3px rgba($grey-dark, 0.3);
       }
       button {
         display: block;
         background: rgba(0, 0, 0, 0.3);
-        color: $secondary;
+        color: $green-light;
         width: 100%;
         padding: 6px;
         margin: 0 auto;
@@ -93,7 +93,7 @@ export default {
         line-height: 36px;
         &:hover {
           background: rgba(0, 0, 0, 0.5);
-          color: lighten($secondary, 20%);
+          color: lighten($green-light, 20%);
         }
       }
     }

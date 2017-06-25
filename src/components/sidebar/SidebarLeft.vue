@@ -1,8 +1,8 @@
 <template lang="pug">
 transition(name="fade" appear)
-  div(:class="`sidebar-${side}`")
+  div(class="sidebar" :class="(side === 'right') ? 'sidebar-right' : 'sidebar-left'")
     div(class="sidebar-headline")
-      h3 Sidebar {{ side }}
+      h2 Sidebar {{ side }}
       button(class="material-icons button--close" @click="toggleSidebar(side)") close
     div(class="sidebar-content")
       div(class="sidebar-c-1")
@@ -15,7 +15,7 @@ transition(name="fade" appear)
 <script>
 import { mapActions } from 'vuex'
 export default {
-  name: 'sidebar-right',
+  name: 'sidebar',
   props: ['side'],
   methods: {
     ...mapActions({
@@ -29,7 +29,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../assets/layout/sidebars';
-.sidebar {
-  @extend %sidebar;
-}
 </style>

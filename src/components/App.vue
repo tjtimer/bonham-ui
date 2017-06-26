@@ -1,15 +1,13 @@
 <template lang="pug">
 div(id="app" :class="`${appLayout} ${scrolling}`")
-  header
-    app-header(class="header")
-  router-view(class="main")
+  app-header(class="app-header")
+  router-view(class="app-main")
   sidebar(class="sidebar" v-if="sidebar.showSidebarLeft" side="left")
   sidebar(class="sidebar" v-if="sidebar.showSidebarRight" side="right")
     notifications-history(slot="sidebar-c-1")
   registration-overlay(v-if="account.showRegistration")
   notifications(v-if="activeNotificationsSet.length > 0" :notificationsSet="activeNotificationsSet")
-  footer
-    app-footer(class="footer" :time="app.now")
+  app-footer(class="app-footer" :time="app.now")
 </template>
 
 <script>
@@ -51,7 +49,7 @@ export default {
 
 <style lang="scss">
 @import '../assets/helpers/_variables';
-@import '../assets/layout/_grid';
+@import '../assets/layout/_app';
 
 body {
   position: relative;

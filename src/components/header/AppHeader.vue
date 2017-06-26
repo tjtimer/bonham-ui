@@ -37,12 +37,10 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/helpers/_mixins';
 @import '../../assets/helpers/_placeholders';
-@import '../../assets/layout/_grid';
+@import '../../assets/layout/_header';
 .header {
   @extend %header-grid;
-  width: 100%;
   text-align: center;
-  padding-bottom: 0.3em;
   box-shadow: 0 2px 3px rgba(black, 0.5);
   .logo {
     grid-area: logo;

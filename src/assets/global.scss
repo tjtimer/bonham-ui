@@ -1,0 +1,104 @@
+@import './helpers/_variables';
+@import './helpers/_placeholders';
+* {
+  line-height: 1.5;
+}
+body {
+  @extend high-contrast;
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+  font: {
+    weight: 500;
+    size: 18px;
+    family: Helvetica, Arial, sans-serif;
+  }
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1 {
+  font: {
+    family: Roboto, Helvetica, sans-serif;
+    weight: 700;
+    size: 48px;
+    variant: small-caps;
+  }
+  text-transform: capitalize;
+}
+h2 {
+  font: {
+    family: Roboto, Helvetica, sans-serif;
+    weight: 400;
+    size: 36px;
+    variant: small-caps;
+  }
+}
+h3 {
+  font: {
+    family: Roboto, Helvetica, sans-serif;
+    weight: 300;
+    size: 24px;
+  }
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: none;
+  color: $secondary;
+  text-decoration: none;
+  text-transform: capitalize;
+  cursor: pointer;
+  font: {
+    family: Helvetica, Arial, sans-serif;
+    size: 18px;
+    variant: small-caps;
+  }
+  &:hover {
+    color: lighten($secondary, 20%);
+    box-shadow: 0 2px 3px rgba($dark, 0.3);
+  }
+  &:focus, &:active, &:visited {
+    border: none,
+  }
+}
+input {
+  &[type="email"],
+  &[type="password"],
+  &[type="text"],
+  &[type="textarea"] {
+    text-align: left;
+    background: $bright;
+    color: $dark;
+    cursor: text;
+    text-transform: none;
+    font-variant: normal;
+  }
+  &:focus, &:active, &:visited {
+    border: none,
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  filter: invert(75%) contrast(1.5);
+}
+.material-icons {
+  text-transform: none;
+  font-variant: normal;
+  &.close {
+    background: $dark;
+    border-radius: 2px;
+    border: none;
+    &:hover {
+      background: lighten($dark, 5%);
+    }
+  }
+}

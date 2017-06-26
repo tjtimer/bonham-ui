@@ -1,0 +1,38 @@
+@import '../helpers/_mixins';
+@import '../helpers/_placeholders';
+
+button%button {
+    @extend %primary-color-combination;
+    display: inline-block;
+    border: 2px solid transparent;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 2px rgba($grey-dark, 0.3);
+    &:hover {
+        background: $blue-light;
+        color: $grey-dark;
+        box-shadow: 0 3px 3px rgba($grey-dark, 0.4);
+    }
+    &:disabled {
+      background: darken($grey-dark, 10%);
+      color: lighten($grey-dark, 20%);
+    }
+    &.button {
+        &--primary {
+          padding: 0.3rem 0.2rem;
+          text-transform: capitalize;
+          font: {
+            size: x-large;
+            variant: small-caps;
+          }
+        }
+        &--close {
+          @include size(2rem);
+          font-size: 1.5rem;
+          border-radius: calc(2rem / 10);
+          position: absolute;
+          top: 0.2rem;
+          right: 0.2rem;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+@import '../helpers/_variables';
+%link {
+  background: $grey-dark;
+  color: $blue-light;
+  text: {
+    transform: capitalize;
+  }
+  font: {
+    family: Helvetica, sans-serif;
+    size: calc(4rem / 3);
+    weight: 500;
+    variant: small-caps;
+  }
+  border: none;
+  box-shadow: 0 0 0 rgba($grey-dark, 0);
+  text-decoration: none;
+  &.active, &.visited {
+    color: darken($blue-light, 10%);
+  }
+  &:hover {
+    background: darken($grey-dark, 5%);
+    color: lighten($blue-light, 10%);
+  }
+}

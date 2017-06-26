@@ -1,0 +1,10 @@
+@import '../helpers/_mixins';
+%header-grid {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 46px 46px;
+  grid-template-columns: 46px 8fr 2fr 46px;
+  grid-template-areas:
+    "toggle-left logo account toggle-right"
+    "navigation navigation navigation navigation";
+}

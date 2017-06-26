@@ -1,0 +1,56 @@
+@import '../helpers/_variables';
+@import '../helpers/_mixins';
+@import '../components/_buttons';
+%sidebar {
+  @include flexparent(column, flex-start, flex-start);
+  @include tablet {
+    width: 75%;
+  }
+  @include laptop {
+    position: relative;
+  }
+  @include desktop {
+    position: relative;
+  }
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 350px;
+  background: rgba($grey-dark, 0.9);
+  height: 100%;
+  overflow: overlay;
+  padding: 0 6px;
+  &.sidebar-left {
+    left: 0;
+  }
+  &.sidebar-right {
+    right: 0;
+  }
+  .sidebar-headline {
+    $buttonsize: 2rem;
+    @include flexparent(nowrap);
+    position: relative;
+    width: 100%;
+    line-height: 1;
+    > h3 {
+      flex: 1 11 calc(100% - #{$buttonsize});
+      font: {
+        size: small;
+        variant: small-caps;
+      }
+    }
+    .sidebar-toggle {
+      flex: 1 1 #{$buttonsize};
+    }
+  }
+  .sidebar-content {
+    @include flexparent(column, stretch, stretch);
+    flex: 1 1 100%;
+    div {
+      flex: 0 1 100%;
+      display: block;
+      padding: 3px 6px;
+      text-align: center;
+    }
+  }
+}

@@ -3,7 +3,7 @@
     button(class="toggle-sidebar toggle-left material-icons" @click="toggleSidebar('left')") menu
     div(class="logo")
       router-link(:to="this.$router.options.base")
-        img(src="../../assets/neume-logo.png")
+        img(src="../../../static/img/neume-logo.png")
     div(class="navigation")
       nav-bar
     div(class="account")

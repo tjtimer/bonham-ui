@@ -7,10 +7,11 @@
     width: 75%;
   }
   @include laptop {
-    position: relative;
+    width: 50%;
   }
   @include desktop {
     position: relative;
+    margin-top: calc(1rem / 3);
   }
   position: fixed;
   top: 0;
@@ -41,6 +42,9 @@
     }
     .sidebar-toggle {
       flex: 1 1 #{$buttonsize};
+    }
+    @include desktop {
+      display: none;
     }
   }
   .sidebar-content {

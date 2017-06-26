@@ -1,0 +1,28 @@
+@import '../helpers/_variables';
+%form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: calc(1rem / 3);
+  box-shadow: 0 1px 3px rgba($grey-dark, 0.5);
+  fieldset {
+    flex: 0 1 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: calc(1rem / 3) 0;
+    label {
+      display: block;
+      width: 100%;
+    }
+    input {
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+      line-height: 1.5;
+      padding: 3px;
+    }
+  }
+}

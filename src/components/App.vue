@@ -1,9 +1,12 @@
 <template lang="pug">
 div(id="app" :class="`${appLayout} ${scrolling}`")
-  app-header(class="app-header")
+  app-header(
+    class="app-header"
+    :sidebarLeftVisible="showSidebarLeft"
+    :sidebarRightVisible="showSidebarRight")
   router-view(class="app-main")
-  sidebar(class="sidebar" v-if="sidebar.showSidebarLeft" side="left")
-  sidebar(class="sidebar" v-if="sidebar.showSidebarRight" side="right")
+  sidebar(class="sidebar" v-if="showSidebarLeft" side="left")
+  sidebar(class="sidebar" v-if="showSidebarRight" side="right")
     notifications-history(slot="sidebar-c-1")
   registration-overlay(v-if="account.showRegistration")
   notifications(v-if="activeNotificationsSet.length > 0" :notificationsSet="activeNotificationsSet")
@@ -37,7 +40,9 @@ export default {
     ...mapState({
       activeNotificationsSet: state => state.notification.notificationsActiveList.map(noteId => state.notification.notifications[noteId]),
       appLayout: state => state.app.size[0] > state.app.size[1] ? 'landscape' : 'portrait',
-      scrolling: state => state.app.scrollY >= 100 ? 'scrolled' : ''
+      scrolling: state => state.app.scrollY >= 100 ? 'scrolled' : '',
+      showSidebarLeft: state => state.sidebar.showSidebarLeft || state.app.size[0] > 1349,
+      showSidebarRight: state => state.sidebar.showSidebarRight || state.app.size[0] > 1349
     })
   },
   // hooks

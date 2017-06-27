@@ -50,8 +50,6 @@ export default function() {
     firstWeekDay: 'monday',
     monthNames: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
     dayNames: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-    currentYear: new Date(Date.now()).getFullYear(),
-    currentMonth: new Date(Date.now()).getMonth(),
-    currentDay: new Date(Date.now()).getDay()
+    currentDate: new Date(Date.now()).toJSON()
   }
 }

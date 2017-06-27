@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="notifications notifications-wrapper")
+  div(id="notifications-history")
     notifications-menu(
       :show="notification.notificationsShow"
       )
@@ -40,14 +40,11 @@ export default {
 @import '../../assets/helpers/_placeholders';
 @import '../../assets/helpers/_variables';
 @import '../../assets/helpers/_mixins';
-.notifications {
+@import '../../assets/components/_buttons';
+#notifications-history {
   flex: 1 1 100%;
   display: flex;
   flex-flow: column;
-  &.notifications-wrapper {
-    background: none;
-    min-width: 250px;
-  }
   .notifications-options,
   .notifications-display-options {
     @extend %primary-color-combination;
@@ -61,23 +58,6 @@ export default {
     padding: 2px 6px;
     line-height: 24px;
     font-size: 16px;
-    label,
-    select,
-    option {
-      flex: 0 1 auto;
-      display: flex;
-      padding: 4px;
-    }
-    label,
-    select {
-      margin-right: 6px;
-      padding: 2px 4px;
-    }
-    option {
-      font-size: 20px;
-      line-height: 28px;
-      padding: 2px 4px;
-    }
   }
   .notifications-list {
     position: relative;

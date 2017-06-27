@@ -38,13 +38,14 @@ export default {
 @import '../../assets/helpers/_mixins';
 @import '../../assets/helpers/_placeholders';
 @import '../../assets/layout/_header';
+@import '../../assets/components/buttons';
 .header {
   @extend %header-grid;
   text-align: center;
   box-shadow: 0 2px 3px rgba(black, 0.5);
   .logo {
     grid-area: logo;
-    display: block;
+    a,
     img {
       display: block;
       width: auto;
@@ -57,8 +58,8 @@ export default {
   .account {
     grid-area: account;
   }
-  .toggle-sidebar {
-    display: block;
+  button {
+    @extend %button;
     &.toggle-left {
       grid-area: toggle-left;
     }
@@ -74,32 +75,6 @@ export default {
       order: 2;
       flex: 0 1 100%;
       justify-content: space-between;
-    }
-  }
-  &.hidden {
-    padding-top: 245px;
-    visibility: hidden;
-  }
-  &.sticky {
-    padding-top: 245px;
-    background: rgba($blue-light, 0.3);
-    flex-flow: nowrap;
-    font-size: 0.8em;
-    a , button {
-      color: $grey-dark;
-    }
-    .logo {
-      display: none;
-    }
-    .navigation {
-      order: 0;
-      flex: 1 1 60%;
-    }
-    .account {
-      order: 0;
-    }
-    .toggle-sidebar {
-      flex: 1 1 46px;
     }
   }
 }

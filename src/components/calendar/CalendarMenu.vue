@@ -1,19 +1,53 @@
 <template lang="pug">
-  div(class="calendar calendar-menu")
+  div(class="calendar-menu")
     h3 {{ calendar.viewType }} - View
-    div(class="calendar switch" :class="calendar.viewType")
-      button(class="previous material-icons" @click="previous") chevron_left
-      span(v-if="calendar.viewType === 'day'" class="current current-day") {{ calendar.currentDay }}.
-      span(class="current current-month") {{ calendar.monthNames[calendar.currentMonth] }}.
-      span(class="current current-Year") {{ calendar.currentYear }}
-      button(class="next material-icons" @click="next") chevron_right
+    div(class="switch-date" :class="calendar.viewType")
+      p  {{ calendar.dayNames[currentWeekDay] }}
+      switch-modulo(
+        v-if="calendar.viewType === 'day' || calendar.viewType === 'month'"
+        class="switch-day"
+        @moduloNext="next('day')"
+        @moduloPrevious="previous('day')"
+        next="chevron_left"
+        previous="chevron_right"
+        direction="vertical"
+        )
+        span(slot="current") {{ currentDay }}.
+      switch-modulo(
+        class="switch-month"
+        @moduloNext="next('month')"
+        @moduloPrevious="previous('month')"
+        next="chevron_left"
+        previous="chevron_right"
+        direction="vertical"
+        )
+        span(slot="current") {{ calendar.monthNames[currentMonth] }}.
+      switch-modulo(
+        class="switch-year"
+        @moduloNext="next('year')"
+        @moduloPrevious="previous('year')"
+        next="chevron_left"
+        previous="chevron_right"
+        direction="vertical"
+        )
+        span(slot="current") {{ currentYear }}
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
+import SwitchModulo from '@/components/utils/SwitchModulo'
 export default {
   name: 'calendar-menu',
+  components: {
+    SwitchModulo
+  },
   computed: {
-    ...mapState(['calendar'])
+    ...mapState(['calendar']),
+    ...mapGetters({
+      currentYear: 'calendar/currentYear',
+      currentMonth: 'calendar/currentMonth',
+      currentDay: 'calendar/currentDay',
+      currentWeekDay: 'calendar/currentWeekDay'
+    })
   },
   methods: {
     ...mapActions({
@@ -24,10 +58,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../../assets/helpers/_mixins';
 .calendar-menu {
-  h3,
-  .current-month {
-    text-transform: capitalize;
+  @include flexparent(column, stretch, center);
+  .switch-date {
+    @include flexparent(nowrap, stretch, center);
   }
+  .previous {}
 }
 </style>

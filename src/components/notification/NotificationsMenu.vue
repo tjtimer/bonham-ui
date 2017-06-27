@@ -1,7 +1,6 @@
 <template lang="pug">
   div(class="notifications-menu")
-    button(@click="notificationsToggleAll")
-      h4 notifications
+    button(@click="notificationsToggleAll") notifications
     div(v-if="notificationsShowStats" class="notifications-count")
       ul(class="notifications-count-table")
         li
@@ -59,12 +58,20 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../assets/helpers/_variables';
+@import '../../assets/components/_buttons';
 .notifications-menu {
   display: flex;
   flex-flow: column;
   padding: 3px;
   h2, h4 {
     line-height: 1.5em;
+    text-decoration: underline;
+  }
+  button {
+    @extend %button;
+    font-size: 24px;
+    line-height: 36px;
+    text-transform: capitalize;
     text-decoration: underline;
   }
   .notifications-count-table {
@@ -74,6 +81,7 @@ export default {
       display: flex;
       flex-flow: column;
       flex: 1 1 33%;
+      padding: 2px;
       text-align: center;
       h4 {
         font-variant: small-caps;
@@ -82,26 +90,15 @@ export default {
         border-bottom: 1px solid black;
         box-shadow: 1px 2px 3px rgba($grey-dark, 0.3);
       }
-      button {
-        display: block;
-        background: rgba(0, 0, 0, 0.3);
-        color: $green-light;
-        width: 100%;
-        padding: 6px;
-        margin: 0 auto;
-        font-size: 24px;
-        line-height: 36px;
-        &:hover {
-          background: rgba(0, 0, 0, 0.5);
-          color: lighten($green-light, 20%);
-        }
+      &:hover h4,
+      h4:hover {
+        background: rgba(0, 0, 0, 1);
+        color: $blue-light;
       }
     }
   }
   .notifications-toggle button {
-    display: block;
-    width: 100%;
-    padding: 6px;
+    @extend %button;
     font-size: 24px;
     line-height: 36px;
   }

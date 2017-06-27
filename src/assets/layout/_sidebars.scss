@@ -2,7 +2,7 @@
 @import '../helpers/_mixins';
 @import '../components/_buttons';
 %sidebar {
-  @include flexparent(column, flex-start, flex-start);
+  @include flexparent(column, stretch, flex-start);
   @include tablet {
     width: 75%;
   }
@@ -17,10 +17,11 @@
   top: 0;
   width: 100%;
   max-width: 350px;
-  background: rgba($grey-dark, 0.9);
+  background: rgba($blue-light, 0.9);
+  color: $grey-dark;
   height: 100%;
   overflow: overlay;
-  padding: 0 6px;
+  padding: 1rem;
   &.sidebar-left {
     left: 0;
   }
@@ -36,11 +37,13 @@
     > h3 {
       flex: 1 11 calc(100% - #{$buttonsize});
       font: {
-        size: small;
+        size: 1rem;
         variant: small-caps;
       }
+      line-height: 1.5;
     }
-    .sidebar-toggle {
+    button {
+      @extend %button;
       flex: 1 1 #{$buttonsize};
     }
     @include desktop {
@@ -50,11 +53,6 @@
   .sidebar-content {
     @include flexparent(column, stretch, stretch);
     flex: 1 1 100%;
-    div {
-      flex: 0 1 100%;
-      display: block;
-      padding: 3px 6px;
-      text-align: center;
-    }
+    padding: 6px;
   }
 }

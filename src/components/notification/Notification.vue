@@ -1,6 +1,6 @@
 <template lang="pug">
   div(class="notification" :class="note.messageType")
-    div(class="header")
+    div(class="title")
       h3 {{ note.title }}
     div(class="body")
       p {{ note.body }}
@@ -39,10 +39,14 @@ export default {
       @extend %error-color-combination;
     }
     &.warning {
-      @extend %error-color-combination;
+      @extend %warning-color-combination;
+    }
+    .title {
+      padding: 0 0.5rem;
     }
     .body {
       font-size: 24px;
+      padding: 0.5rem;
       .created {
         font-size: 12px;
       }
@@ -53,18 +57,16 @@ export default {
       align-items: stretch;
       justify-content: space-around;
       padding: 0 3px 6px;
-      .button {
+      button {
         @extend %button;
-        flex: 1 1 33.330%;
-        font-size: 18px;
-        line-height: 24px;
+        flex: 1 1 calc(100% / 3);
+        font-size: 1rem;
+        line-height: 1.2rem;
         margin: 2px;
         padding: 3px;
         background: $grey-dark;
+        color: $yellow-light;
         border-radius: 6px;
-        &:hover {
-          background: lighten($grey-dark, 5%);
-        }
       }
     }
   }

@@ -34,21 +34,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../../assets/helpers/_mixins';
+@import '../../assets/components/_buttons';
 #account {
   position: relative;
-  flex: 1 1 auto;
+  @include size(100%);
   display: flex;
   align-items: stretch;
   justify-content: center;
-  align-self: stretch;
+  button {
+    @extend %button;
+    @include size(100%);
+    display: block;
+    font-size: 2em;
+    flex: 1 1 auto;
+  }
 }
-button {
-  display: block;
-  font-size: 2em;
-  flex: 1 1 auto;
-}
-button:hover {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
-}
+
 </style>

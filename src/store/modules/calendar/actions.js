@@ -1,24 +1,16 @@
 import * as types from '../../mutation_types'
+
 export default {
-  next(store) {
+  next(store, key) {
     console.log('calendar next clicked: ', store)
-    if (store.state.viewType === 'year') store.commit(types.CALENDAR_SET_CURRENT_YEAR, store.state.currentYear + 1)
-    else if (store.state.viewType === 'month') store.dispatch('nextMonth')
-    else store.commit(types.CALENDAR_SET_CURRENT_DAY, store.state.currentDay + 1)
+    if (key === 'year') store.commit(types.CALENDAR_SET_CURRENT_YEAR, store.getters.currentYear + 1)
+    else if (key === 'month') store.commit(types.CALENDAR_SET_CURRENT_MONTH, (store.getters.currentMonth + 1) % 12)
+    else store.commit(types.CALENDAR_SET_CURRENT_DAY, (store.getters.currentDay) % store.getters.currentDaysInMonth + 1)
   },
-  previous(store) {
+  previous(store, key) {
     console.log('calendar previous clicked: ', store)
-    if (store.state.viewType === 'year') store.commit(types.CALENDAR_SET_CURRENT_YEAR, store.state.currentYear - 1)
-    else if (store.state.viewType === 'month') store.commit(types.CALENDAR_SET_CURRENT_MONTH, store.state.currentMonth - 1)
-    else store.commit(types.CALENDAR_SET_CURRENT_DAY, store.state.currentDay - 1)
-  },
-  nextMonth(store) {
-    const month = store.state.currentMonth
-    let newMonth = month + 1
-    if (month === 11) { // js date counts month from 0 to 11 (0 -> january, 11 -> december)
-      newMonth = 0
-      store.commit(types.CALENDAR_SET_CURRENT_YEAR, store.state.currentYear + 1)
-    }
-    store.commit(types.CALENDAR_SET_CURRENT_MONTH, newMonth)
+    if (key === 'year') store.commit(types.CALENDAR_SET_CURRENT_YEAR, store.getters.currentYear - 1)
+    else if (key === 'month') store.commit(types.CALENDAR_SET_CURRENT_MONTH, (store.getters.currentMonth + 11) % 12) // adding one less than the modulo is as substract one
+    else store.commit(types.CALENDAR_SET_CURRENT_DAY, (((store.getters.currentDay - 1) + (store.getters.currentDaysInMonth - 1)) % store.getters.currentDaysInMonth) + 1)
   }
 }

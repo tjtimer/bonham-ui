@@ -54,7 +54,7 @@ export default {
     @extend %secondary-color-combination;
     position: relative;
     display: flex;
-    flex: 0 1 300px;
+    flex: 1 1 30rem;
     flex-flow: column;
     justify-content: center;
     align-items: stretch;

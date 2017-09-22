@@ -24,8 +24,14 @@
         v-model="password2"
         :class="account.isValidPassword2 ? 'valid' : 'invalid'")
     div(class="reset-submit-wrapper")
-      button(class="reset-submit button--primary" type="reset") reset
-      button(class="reset-submit button--primary" @click="submitForm({email, password, password2})" submit.prevent) ok
+      button(
+        class="reset-submit button--primary"
+        type="reset") reset
+      button(
+        class="reset-submit button--primary"
+        type="submit"
+        @click="submitForm({email, password, password2})"
+        submit.prevent) ok
 </template>
 
 <script>

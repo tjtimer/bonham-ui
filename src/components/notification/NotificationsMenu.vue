@@ -30,7 +30,7 @@
     div(v-if="notificationsShowStats" class="notifications-toggle")
       button(
         @click="toggleNotifications"
-        ) {{ show ? 'Hide' : 'Show' }} All
+        ) {{ show ? 'Hide' : 'Show' }} {{ notificationsDisplayFilter }}
 </template>
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
@@ -42,6 +42,7 @@ export default {
       notificationsShowStats: state => state.notification.notificationsShowStats
     }),
     ...mapGetters({
+      notificationsDisplayFilter: 'notification/notificationsDisplayFilter',
       notificationsRead: 'notification/notificationsRead',
       notificationsUnread: 'notification/notificationsUnread',
       notificationsArchived: 'notification/notificationsArchived'

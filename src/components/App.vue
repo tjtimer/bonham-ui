@@ -11,6 +11,7 @@ div(id="app" :class="`${appLayout} ${scrolling}`")
   registration-overlay(v-if="account.showRegistration")
   notifications(v-if="activeNotificationsSet.length > 0"
   :notificationsSet="activeNotificationsSet")
+  chat-room
   app-footer(class="app-footer" :time="app.now")
 </template>
 
@@ -24,7 +25,7 @@ import AppFooter from '@/components/footer/AppFooter'
 import Notifications from '@/components/notification/Notifications'
 import NotificationsHistory from '@/components/notification/NotificationsHistory'
 import RegistrationOverlay from '@/components/account/RegistrationOverlay'
-import Background from '@/components/animated/Background'
+import ChatRoom from '@/components/chat/ChatRoom'
 export default {
   name: 'app',
   components: {
@@ -35,7 +36,7 @@ export default {
     'notifications': Notifications,
     'notifications-history': NotificationsHistory,
     'registration-overlay': RegistrationOverlay,
-    'background-animated': Background
+    'chat-room': ChatRoom
   },
   data() {
     return {

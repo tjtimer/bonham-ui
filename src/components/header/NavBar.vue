@@ -15,6 +15,7 @@ export default {
 @import '../../assets/components/_links';
 @import '../../assets/helpers/_variables';
 #nav-bar {
+  font-size: 3rem;
   .nav-bar-wrapper {
     flex: 1 1 100%;
     display: flex;

@@ -2,13 +2,13 @@
 
 > A Vue.js PWA
 
-
 Project Structure:
+
 - bonham-ui
-    - build (webpack build configurations)
-    - config (webpack environment configurations)
-    - node_modules
-    - src (actual project)
+
+  - node_modules
+
+  - src (actual project)
         - assets (global scss, e.g. colors.scss)
         - components (only *.vue files)
         - store
@@ -23,8 +23,8 @@ Project Structure:
     - *rc files (babel, eslint, postcss, ...)
     - README.md
 
-
 Naming Conventions:
+
 - Components:
-    - Files:  PascalCase (e.g. NavBar.vue)
-    - Name: kebap-case (e.g. name: 'nav-bar')
+  - Files:  PascalCase (e.g. NavBar.vue)
+  - Name: kebab-case (e.g. name: 'nav-bar')

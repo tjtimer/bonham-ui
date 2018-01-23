@@ -2,6 +2,8 @@
 .cache/
 node_modules/
 **/*.png
-static/
+static/images/
+static/icons/
 test/
 dist/
+package-lock.json

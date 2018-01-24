@@ -20,7 +20,7 @@ Project Structure:
     - static (manifest.json, images, etc.)
     - index.html
     - package.json
-    - *rc files (babel, eslint, postcss, ...)
+    - *rc(.js) files (babel, eslint, postcss, browserslist, ...)
     - README.md
 
 Naming Conventions:

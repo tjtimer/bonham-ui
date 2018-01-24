@@ -1,6 +1,6 @@
 <template lang="pug">
   #home
-    h1 Home
+    h1 home
 </template>
 <script>
 export default {
@@ -9,8 +9,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 #home {
-  background: #0f0;
-  color: #909;
+  border: 1px solid blue;
 }
 </style>
 

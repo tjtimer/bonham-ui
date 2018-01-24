@@ -1,6 +1,6 @@
 <template lang="pug">
   #app(:class="ready ? `ready ${layout}` : 'loading'")
-    app-header(v-if="ready")
+    app-header
     router-view
 </template>
 
@@ -17,26 +17,36 @@ export default {
       ready: false
     };
   },
+  methods: {
+    handleResize: function(e) {
+      console.log(e, e.target);
+      if (window.innerWidth <= 400) {
+        console.log("now window.innerWidth is smaller than 400px");
+      }
+    }
+  },
   created() {
-    this.layout =
-      window.innerWidth >= window.innerHeight ? "landscape" : "portrait";
+    window.addEventListener("resize", this.handleResize); // TODO: debounce
     setTimeout(() => {
+      this.layout =
+        window.innerWidth >= window.innerHeight ? "landscape" : "portrait";
       this.ready = true;
-    }, 2000);
+    }, 2500);
   }
 };
 </script>
 
 <style lang="scss">
-body {
-  padding: 0;
-}
+@import "./assets/styles/_base";
 #app {
-  background: #fff;
-  color: #56b983;
   transition: all 2s;
+  &.loading {
+    background-color: #fff;
+    color: #fff;
+  }
   &.ready {
-    background: #135;
+    background-color: $primary-bg;
+    color: $primary-color;
   }
 }
 </style>

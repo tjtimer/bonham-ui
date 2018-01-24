@@ -1,0 +1,43 @@
+$primary-bg: darkslategray;
+$primary-color: complement($color: darkslategray);
+*,
+body {
+  padding: 0;
+  margin: 0;
+  font: {
+    family: "IBM Plex Sans Light", "Arial", "sans serif";
+    size: 16px;
+  }
+  white-space: nowrap;
+}
+
+h1,
+h2,
+h3,
+a {
+  text-transform: capitalize;
+}
+
+a {
+  color: aqua;
+  transition: all 0.3s;
+  &:hover {
+    color: azure;
+  }
+}
+
+ul {
+  display: flex;
+  &.row {
+    flex-flow: row wrap;
+  }
+  &.column {
+    flex-flow: column;
+  }
+}
+
+li {
+  padding: 0.3rem;
+  display: inline-flex;
+  flex: 1 auto;
+}

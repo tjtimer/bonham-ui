@@ -5,12 +5,15 @@ import App from './App.vue'
 import Home from './views/Home'
 import Live from './views/Live'
 import Contact from './views/Contact'
+import ConcertDetail from './components/ConcertDetail'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
   base: '/',
+  linkActiveClass: '',
+  linkExactActiveClass: 'active',
   routes: [{
     path: "/",
     name: "home",
@@ -18,7 +21,12 @@ const router = new Router({
   }, {
     path: "/live",
     name: "live",
-    component: Live
+    component: Live,
+    children: [{
+      path: "/live/:date",
+      name: "concertDetail",
+      component: ConcertDetail
+    }, ]
   }, {
     path: "/contact",
     name: "contact",

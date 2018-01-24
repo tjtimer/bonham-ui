@@ -4,6 +4,8 @@ $primary-color: complement($color: darkslategray);
 body {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+  position: relative;
   font: {
     family: "IBM Plex Sans Light", "Arial", "sans serif";
     size: 16px;
@@ -15,11 +17,26 @@ h1,
 h2,
 h3,
 a {
+  display: block;
+  width: 100%;
   text-transform: capitalize;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.7rem;
+}
+
+h3 {
+  font-size: 1.5rem;
 }
 
 a {
   color: aqua;
+  font-size: 1.2rem;
   transition: all 0.3s;
   &:hover {
     color: azure;

@@ -1,11 +1,11 @@
 <template lang="pug">
   header#app-header
     h1 App Header
-    nav(v-if="showNav")
-      ul.row
+    nav
+      button.toggle-nav(@click="toggleNav") open nav
+      ul.row(v-if="showNav")
         li(v-for="route, index in $router.options.routes" :key="index")
           router-link.view-link(:to="route.path") {{ index }}: {{ route.name }}
-    button.toggle-nav(@click="toggleNav") open nav
 </template>
 <script>
 export default {

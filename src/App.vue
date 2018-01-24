@@ -19,10 +19,13 @@ export default {
   },
   methods: {
     handleResize: function(e) {
-      console.log(e, e.target);
+      window.removeEventListener("resize", this.handleResize);
       if (window.innerWidth <= 400) {
         console.log("now window.innerWidth is smaller than 400px");
       }
+      setTimeout(() => {
+        window.addEventListener("resize", this.handleResize);
+      }, 1500);
     }
   },
   created() {

@@ -3,7 +3,7 @@
     h1 live
     ul.column.upcoming
       li(v-for="item, index in concerts")
-        router-link.concert-details-link(:to="item.date" append)
+        router-link.concert-details-link(:to="`${item.date}-${item.venue}`" append)
           ul.row.concert(:class="item.cancelled ? 'cancelled' : ''")
             li.date 
               p {{ item.date }}

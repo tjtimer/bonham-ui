@@ -2,14 +2,21 @@
   header#app-header
     h1 App Header
     nav
-      button.toggle-nav(@click="toggleNav") open nav
+      button.toggle-nav(@click="toggleNav") 
+        x-square-icon(v-if="showNav")
+        menu-icon(v-else)
       ul.row(v-if="showNav")
         li(v-for="route, index in $router.options.routes" :key="index")
           router-link.view-link(:to="route.path") {{ index }}: {{ route.name }}
 </template>
 <script>
+import { XSquare, Menu } from "vue-feather-icon";
 export default {
   name: "app-header",
+  components: {
+    "x-square-icon": XSquare,
+    "menu-icon": Menu
+  },
   data() {
     return {
       showNav: false

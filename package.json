@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "vue": "^2.5.13",
+    "vue-feather-icon": "^1.2.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

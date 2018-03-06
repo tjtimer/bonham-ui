@@ -19,8 +19,11 @@ export default {
     children: [{
       path: "/live/:date-:venue",
       name: "concertDetail",
-      component: ConcertDetail,
-      props: true
+      component: ConcertDetail
+    }, {
+      path: "/live/add-concert",
+      name: "addConcert",
+      component: ConcertDetail
     }, ]
   }, {
     path: "/contact",

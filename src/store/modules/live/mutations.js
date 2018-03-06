@@ -2,12 +2,22 @@ import * as mt from '../../mutation_types'
 
 export default {
   [mt.SET_ACTIVE](state, index) {
-    state.currentActive = {
-      ...state.currentActive,
-      ...state.concerts[index],
-      hasChanged: false
+    if (index === null) {
+      state.currentActive = {
+        ...state.currentActive,
+        id: Date.now(),
+        date: new Date().toDateString(),
+        hasChanged: false
+      }
+      state.currentActiveIndex = state.concerts.length
+    } else {
+      state.currentActive = {
+        ...state.currentActive,
+        ...state.concerts[index],
+        hasChanged: false
+      }
+      state.currentActiveIndex = index
     }
-    state.currentActiveIndex = index
   },
   [mt.SET_CLOSED](state) {
     state.currentActive = {
@@ -31,10 +41,10 @@ export default {
   },
   [mt.UPDATE_ORIGINAL](state) {
     const index = parseInt(state.currentActiveIndex)
-    const { date, venue, city, info, cancelled } = state.currentActive
+    const { id, date, venue, city, info, cancelled } = state.currentActive
     state.concerts = [
       ...state.concerts.slice(0, index),
-      {...state.concerts[index], date, venue, city, info, cancelled},
+      {...state.concerts[index], id, date, venue, city, info, cancelled},
       ...state.concerts.slice(index+1, state.concerts.length)
     ]
   }

@@ -8,7 +8,6 @@ async function wait(delay) {
 export default {
   async setCurrentActive(store, index) {
     store.commit(mt.SET_ACTIVE, index)
-
   },
   async closeDetails(store) {
     console.log("close: ");
@@ -31,5 +30,9 @@ export default {
   async saveShortInfo(store, e) {
     console.log("save short info: ", e);
     store.commit(mt.SET_DETAIL_CHANGED, ['info', e])
+  },
+  async saveCancelled(store, e) {
+    console.log("save cancelled: ", e);
+    store.commit(mt.SET_DETAIL_CHANGED, ['cancelled', e])
   }
 }

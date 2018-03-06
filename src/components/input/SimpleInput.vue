@@ -1,5 +1,5 @@
 <template lang="pug">
-  .text.input(:class="edit ? 'edit' : 'read'")
+  .simple.input(:class="edit ? `${type} edit` : `${type} read`")
     input(
       v-if="edit"
       :type="type"
@@ -7,7 +7,7 @@
       v-model="changedValue"
       @change="$emit('onChange', changedValue)"
       @blur="$emit('onBlur', changedValue)"
-      )
+      :checked="checked")
     p(v-else) {{ changedValue }}
     button.save(v-if="edit" @click="saveValue")
       span save
@@ -19,7 +19,7 @@
 <script>
 import { Edit3, XSquare } from "vue-feather-icon";
 export default {
-  name: "text-input",
+  name: "simple-input",
   components: {
     "edit-3-icon": Edit3,
     "x-square-icon": XSquare
@@ -38,7 +38,13 @@ export default {
     },
     value: {
       type: String,
-      required: false
+      required: false,
+      default: "type here ..."
+    },
+    checked: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {
@@ -51,7 +57,11 @@ export default {
     }
   },
   beforeMount: function() {
-    this.changedValue = this.value
+    if (this.type === 'checkbox') {
+      this.changedValue = this.checked 
+    } else {
+      this.changedValue = this.value 
+    }
   }
 };
 </script>

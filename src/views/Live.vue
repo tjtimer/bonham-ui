@@ -3,9 +3,7 @@
     h1 live
     ul.column.upcoming
       li(v-for="item, index in live.concerts")
-        button.concert-details-link(
-          type="button"
-          @click="showDetails(index)")
+        a.concert-details-link(@click.prevent="showConcertDetails(index)" :key="index")
           ul.row.concert(:class="item.cancelled ? 'cancelled' : ''")
             li.date 
               p {{ item.date }}
@@ -13,6 +11,9 @@
               p {{ item.venue }} {{ item.city }}
             li.info
               p {{ item.info }}
+      li.add-item
+        a.concert-add-link(@click.prevent="addConcert")
+          p add a new show
     router-view.concert-detail
 </template>
 <script>
@@ -24,10 +25,14 @@ export default {
     ...mapState(["live"])
   },
   methods: {
-    showDetails: function(index) {
+    showConcertDetails: function(index) {
       const next = this.live.concerts[index]
       this.$store.dispatch('live/setCurrentActive', index)
       this.$router.push(`live/${next.date}-${next.value}`)
+    },
+    addConcert: function() {
+      this.$store.dispatch('live/setCurrentActive', null)
+      this.$router.push(`live/add-concert`)
     }
   }
 };

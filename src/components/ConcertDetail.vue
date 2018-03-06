@@ -4,24 +4,28 @@
       h1 concert details
       button(name="close" @click.stop="close")
         x-square-icon
-      article.details
-        p id: {{live.currentActive.id}}
+      button(name="save" @click.stop="save" :disabled="!live.currentActive.hasChanged" )
+        span save
+      article.concert.details
         .date
-          text-input(:value="live.currentActive.date" @onSave="saveDate")
+          simple-input(:value="live.currentActive.date" type="Date" @onSave="saveDate")
         .venue
-          text-input(:value="live.currentActive.venue" @onSave="saveVenue")
+          simple-input(:value="live.currentActive.venue" @onSave="saveVenue")
         .short-info
-          text-input(:value="live.currentActive.info" @onSave="saveShortInfo")
+          simple-input(:value="live.currentActive.info" @onSave="saveShortInfo")
+        .cancelled
+          simple-input(type="checkbox" :checked="live.currentActive.cancelled" @onSave="saveCancelled(!live.currentActive.cancelled)")
+        p.small.right id: {{ live.currentActive.id }}
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
 import { XSquare } from "vue-feather-icon";
-import TextInput from "../components/input/TextInput";
+import SimpleInput from "../components/input/SimpleInput";
 export default {
   name: "concert-details",
   components: {
     "x-square-icon": XSquare,
-    "text-input": TextInput
+    "simple-input": SimpleInput
   },
   computed: {
     ...mapState(["live"])
@@ -30,7 +34,8 @@ export default {
     ...mapActions({
       saveDate: "live/saveDate",
       saveVenue: "live/saveVenue",
-      saveShortInfo: "live/saveShortInfo"
+      saveShortInfo: "live/saveShortInfo",
+      saveCancelled: "live/saveCancelled"
     }),
     close(e) {
       const el = e.target;
@@ -38,6 +43,11 @@ export default {
         this.$store.dispatch("live/closeDetails");
         this.$router.push("/live");
       }
+    },
+    save() {
+      this.$store.dispatch("live/closeDetails");
+      // this.$store.dispatch("live/saveDetails");
+      this.$router.push("/live");
     }
   }
 };

@@ -1,15 +1,15 @@
 <template lang="pug">
   .text.input(:class="edit ? 'edit' : 'read'")
     input(
-      type="text"
       v-if="edit"
+      :type="type"
       :placeholder="value"
       v-model="changedValue"
       @change="$emit('onChange', changedValue)"
       @blur="$emit('onBlur', changedValue)"
       )
-    p(v-else) {{ changedValue || value }}
-    button.save(v-if="edit" @click="$emit('onSave', changedValue)")
+    p(v-else) {{ changedValue }}
+    button.save(v-if="edit" @click="saveValue")
       span save
     button.toggle.edit(@click="toggleEdit")
       x-square-icon(v-if="edit")
@@ -31,6 +31,11 @@ export default {
     };
   },
   props: {
+    type: {
+      type: String,
+      required: false,
+      default: "text"
+    },
     value: {
       type: String,
       required: false
@@ -39,6 +44,10 @@ export default {
   methods: {
     toggleEdit: function() {
       this.edit = !this.edit;
+    },
+    saveValue: function() {
+      this.$emit('onSave', this.changedValue)
+      this.toggleEdit()
     }
   },
   beforeMount: function() {

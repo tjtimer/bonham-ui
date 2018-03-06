@@ -16,14 +16,9 @@ export default {
       await store.dispatch('saveDetails')
     }
     store.commit(mt.SET_CLOSED)
-    console.log("closed details")
   },
   async saveDetails(store) {
-    console.log("saving details")
-    // await wait(2000)
-    console.log("Time is out")
     store.commit(mt.UPDATE_ORIGINAL)
-    console.log("details saved")
   },
   async saveDate(store, e) {
     console.log("save date: ", e);

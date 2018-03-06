@@ -6,17 +6,18 @@ async function wait(delay) {
   })
 }
 export default {
-  async setCurrentActive(store, index) {
+  async init(store, index) {
     store.commit(mt.ON_OPEN, index)
   },
   async closeDetails(store) {
     console.log("close: ");
-    if (store.state.currentActive.hasChanged === true) {
-      await store.dispatch('saveDetails')
+    if (store.state.active.hasChanged === true) {
+      await store.dispatch('discardOrSave')
     }
     store.commit(mt.ON_CLOSE)
   },
-  async saveDetails(store) {
+  async discardOrSave(store) {},
+  async saveObject(store) {
     store.commit(mt.ON_UPDATE_OBJECT)
   },
   async saveDate(store, e) {

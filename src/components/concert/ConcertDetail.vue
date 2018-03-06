@@ -4,22 +4,22 @@
       h1 concert details
       button(name="close" @click.stop="close")
         x-square-icon
-      button(name="save" @click.stop="save" :disabled="!live.currentActive.hasChanged" )
+      button(name="save" @click.stop="save" :disabled="!concert.active.hasChanged" )
         span save
       article.concert.details
         .date
           simple-input(
-            title="Date" :value="live.currentActive.date" type="Date" @onSave="saveDate")
+            title="date" :value="concert.active.date" type="Date" @onSave="saveDate")
         .venue
           simple-input(
-            title="Venue":value="live.currentActive.venue" @onSave="saveVenue")
+            title="venue" :value="concert.active.venue" @onSave="saveVenue")
         .short-info
           simple-input(
-            title="Info":value="live.currentActive.info" @onSave="saveShortInfo")
+            title="info" :value="concert.active.info" @onSave="saveShortInfo")
         .cancelled
           simple-input(
-            title="Cancelled" type="checkbox" :checked="live.currentActive.cancelled" @onSave="saveCancelled(!live.currentActive.cancelled)")
-        p.small.right id: {{ live.currentActive.id }}
+            title="cancelled" type="checkbox" :checked="concert.active.cancelled" @onSave="saveCancelled(!concert.active.cancelled)")
+        p.small.right id: {{ concert.active.id }}
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
@@ -32,26 +32,26 @@ export default {
     "simple-input": SimpleInput
   },
   computed: {
-    ...mapState(["live"])
+    ...mapState(["concert"])
   },
   methods: {
     ...mapActions({
-      saveDate: "live/saveDate",
-      saveVenue: "live/saveVenue",
-      saveShortInfo: "live/saveShortInfo",
-      saveCancelled: "live/saveCancelled"
+      saveDate: "concert/saveDate",
+      saveVenue: "concert/saveVenue",
+      saveShortInfo: "concert/saveShortInfo",
+      saveCancelled: "concert/saveCancelled"
     }),
     close(e) {
       const el = e.target;
       if (el.id === "concert-details" || el.name === "close") {
-        this.$store.dispatch("live/closeDetails");
-        this.$router.push("/live");
+        this.$store.dispatch("concert/closeDetails");
+        this.$router.push("/concert");
       }
     },
     save() {
-      this.$store.dispatch("live/closeDetails");
-      // this.$store.dispatch("live/saveDetails");
-      this.$router.push("/live");
+      this.$store.dispatch("concert/closeDetails");
+      // this.$store.dispatch("concert/saveObject");
+      this.$router.push("/concert");
     }
   }
 };

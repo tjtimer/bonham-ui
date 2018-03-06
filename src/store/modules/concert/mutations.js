@@ -3,23 +3,23 @@ import * as mt from '../../mutation_types'
 export default {
   [mt.ON_OPEN](state, index) {
     if (index === null) {
-      state.currentActive = {
-        ...state.currentActive,
+      state.active = {
+        ...state.active,
         date: new Date(),
         hasChanged: false
       }
-      state.currentActiveIndex = state.concerts.length
+      state.activeIndex = state.concerts.length
     } else {
-      state.currentActive = {
-        ...state.currentActive,
+      state.active = {
+        ...state.active,
         ...state.concerts[index],
         hasChanged: false
       }
-      state.currentActiveIndex = index
+      state.activeIndex = index
     }
   },
   [mt.ON_CLOSE](state) {
-    state.currentActive = {
+    state.active = {
       id: null,
       date: "",
       venue: "",
@@ -28,18 +28,18 @@ export default {
       cancelled: false,
       hasChanged: false
     }
-    state.currentActiveIndex = null
+    state.activeIndex = null
   },
   [mt.ON_UPDATE_FIELD](state, payload) {
     const [field, value] = payload
-    state.currentActive = {
-      ...state.currentActive,
+    state.active = {
+      ...state.active,
       [field]: value,
       hasChanged: true
     }
   },
   [mt.ON_UPDATE_OBJECT](state) {
-    const index = parseInt(state.currentActiveIndex)
+    const index = parseInt(state.activeIndex)
     const {
       id,
       date,
@@ -47,7 +47,7 @@ export default {
       city,
       info,
       cancelled
-    } = state.currentActive
+    } = state.active
     state.concerts = [
       ...state.concerts.slice(0, index),
       { ...state.concerts[index],

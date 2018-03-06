@@ -6,6 +6,7 @@
 
 <script>
 import AppHeader from "./components/layout/AppHeader";
+import { mapActions } from "vuex";
 export default {
   name: "app",
   components: {
@@ -26,10 +27,13 @@ export default {
       setTimeout(() => {
         window.addEventListener("resize", this.handleResize);
       }, 1500);
-    }
+    },
+    ...mapActions(["app", "notifications"])
   },
   created() {
-    this.$store.dispatch("app/init");
+    console.log("They created an app!");
+    // this.$store.dispatch("app/init");
+    this.$store.dispatch("notifications/init");
   }
 };
 </script>

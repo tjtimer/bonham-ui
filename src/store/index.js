@@ -1,7 +1,14 @@
+import account from './modules/account'
 import concert from './modules/concert'
+import notifications from './modules/notifications'
+
+
 export default {
   modules: {
-    concert
+    account,
+    concert,
+    notifications
   },
-  strict: true
+  strict: true,
+  ls: localStorage
 }

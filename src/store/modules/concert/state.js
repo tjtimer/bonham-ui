@@ -25,7 +25,7 @@ export default function () {
         cancelled: true
       }
     ],
-    currentActive: {
+    active: {
       id: null,
       date: "",
       venue: "",
@@ -34,6 +34,6 @@ export default function () {
       cancelled: false,
       hasChanged: false
     },
-    currentActiveIndex: null
+    activeIndex: null
   }
 }

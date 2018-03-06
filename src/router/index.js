@@ -1,7 +1,7 @@
 import Home from '../views/Home'
-import Live from '../views/Live'
 import Contact from '../views/Contact'
-import ConcertDetail from '../components/ConcertDetail'
+import Live from '../components/live/ConcertView'
+import ConcertDetail from '../components/live/ConcertDetail'
 
 export default {
   mode: 'history',

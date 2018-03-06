@@ -24,7 +24,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { XSquare } from "vue-feather-icon";
-import SimpleInput from "../components/input/SimpleInput";
+import SimpleInput from "../input/SimpleInput";
 export default {
   name: "concert-details",
   components: {

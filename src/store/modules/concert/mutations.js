@@ -1,12 +1,11 @@
 import * as mt from '../../mutation_types'
 
 export default {
-  [mt.SET_ACTIVE](state, index) {
+  [mt.ON_OPEN](state, index) {
     if (index === null) {
       state.currentActive = {
         ...state.currentActive,
-        id: Date.now(),
-        date: new Date().toDateString(),
+        date: new Date(),
         hasChanged: false
       }
       state.currentActiveIndex = state.concerts.length
@@ -19,7 +18,7 @@ export default {
       state.currentActiveIndex = index
     }
   },
-  [mt.SET_CLOSED](state) {
+  [mt.ON_CLOSE](state) {
     state.currentActive = {
       id: null,
       date: "",
@@ -31,7 +30,7 @@ export default {
     }
     state.currentActiveIndex = null
   },
-  [mt.SET_DETAIL_CHANGED](state, payload) {
+  [mt.ON_UPDATE_FIELD](state, payload) {
     const [field, value] = payload
     state.currentActive = {
       ...state.currentActive,
@@ -39,13 +38,27 @@ export default {
       hasChanged: true
     }
   },
-  [mt.UPDATE_ORIGINAL](state) {
+  [mt.ON_UPDATE_OBJECT](state) {
     const index = parseInt(state.currentActiveIndex)
-    const { id, date, venue, city, info, cancelled } = state.currentActive
+    const {
+      id,
+      date,
+      venue,
+      city,
+      info,
+      cancelled
+    } = state.currentActive
     state.concerts = [
       ...state.concerts.slice(0, index),
-      {...state.concerts[index], id, date, venue, city, info, cancelled},
-      ...state.concerts.slice(index+1, state.concerts.length)
+      { ...state.concerts[index],
+        id,
+        date,
+        venue,
+        city,
+        info,
+        cancelled
+      },
+      ...state.concerts.slice(index + 1, state.concerts.length)
     ]
   }
 }

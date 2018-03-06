@@ -1,7 +1,7 @@
-import live from './modules/live'
+import concert from './modules/concert'
 export default {
   modules: {
-    live
+    concert
   },
   strict: true
 }

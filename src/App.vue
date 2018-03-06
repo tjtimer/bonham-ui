@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AppHeader from "./components/AppHeader";
+import AppHeader from "./components/layout/AppHeader";
 export default {
   name: "app",
   components: {
@@ -29,12 +29,7 @@ export default {
     }
   },
   created() {
-    window.addEventListener("resize", this.handleResize); // TODO: debounce
-    setTimeout(() => {
-      this.layout =
-        window.innerWidth >= window.innerHeight ? "landscape" : "portrait";
-      this.ready = true;
-    }, 2500);
+    this.$store.dispatch("app/init");
   }
 };
 </script>

@@ -1,5 +1,9 @@
-export const SET_ACTIVE = 'SET_ACTIVE'
-export const SET_DETAIL_CHANGED = 'SET_DETAIL_CHANGED'
-export const SET_CLOSED = 'SET_CLOSED'
+export const ON_OPEN = 'ON_OPEN'
+export const ON_CLOSE = 'ON_CLOSE'
 
-export const UPDATE_ORIGINAL = 'UPDATE_ORIGINAL'
+export const ON_UPDATE_FIELD = 'ON_UPDATE_FIELD'
+export const ON_RESET_FIELD = 'ON_RESET_FIELD'
+
+export const ON_CREATE_OBJECT = 'ON_CREATE_OBJECT'
+export const ON_UPDATE_OBJECT = 'ON_UPDATE_OBJECT'
+export const ON_DELETE_OBJECT = 'ON_DELETE_OBJECT'

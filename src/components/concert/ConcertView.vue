@@ -1,17 +1,18 @@
 <template lang="pug">
-  #live
-    h1 live
+  #concert-view
+    h1 concert
     ul.column.upcoming
-      li(v-for="item, index in live.concerts")
-        a.concert-details-link(@click.prevent="showConcertDetails(index)" :key="index")
-          ul.row.concert(:class="item.cancelled ? 'cancelled' : ''")
+      li(v-for="concert, index in concert.concerts")
+        a.concert-details-link(@click.prevent="showConcertDetails(index)")
+          ul.row.concert(:class="concert.cancelled ? 'cancelled' : ''")
             li.date 
-              p {{ item.date }}
+              p {{ concert.date }}
             li.venue
-              p {{ item.venue }} {{ item.city }}
+              p {{ concert.venue }} {{ concert.city }}
             li.info
-              p {{ item.info }}
-      li.add-item
+              p {{ concert.info }}
+        button(type="button" @click="deleteConcert(index)")
+      li.add-concert
         a.concert-add-link(@click.prevent="addConcert")
           p add a new show
     router-view.concert-detail
@@ -19,26 +20,29 @@
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
-  name: "live",
+  name: "concert-view",
   components: {},
   computed: {
-    ...mapState(["live"])
+    ...mapState(["concert"])
   },
   methods: {
     showConcertDetails: function(index) {
-      const next = this.live.concerts[index]
-      this.$store.dispatch('live/setCurrentActive', index)
-      this.$router.push(`live/${next.date}-${next.value}`)
+      const next = this.concert.concerts[index];
+      this.$store.dispatch("concert/setCurrentActive", index);
+      this.$router.push(`concert/${next.date}-${next.value}`);
     },
     addConcert: function() {
-      this.$store.dispatch('live/setCurrentActive', null)
-      this.$router.push(`live/add-concert`)
+      this.$store.dispatch("concert/setCurrentActive", null);
+      this.$router.push(`concert/add-concert`);
     }
+  },
+  created() {
+    this.$store.dispatch("concert/init");
   }
 };
 </script>
 <style lang="scss" scoped>
-#live {
+#concert-view {
   border: 1px solid yellow;
   .concert-details-link {
     background: rgba(#05a6f6, 0.4);

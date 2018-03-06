@@ -40,6 +40,9 @@ export default {
     toggleEdit: function() {
       this.edit = !this.edit;
     }
+  },
+  beforeMount: function() {
+    this.changedValue = this.value
   }
 };
 </script>

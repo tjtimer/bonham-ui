@@ -3,9 +3,9 @@
     h1 live
     ul.column.upcoming
       li(v-for="item, index in live.concerts")
-        router-link.concert-details-link(
-          :to="`${item.date}-${item.venue}`" 
-          params="item" append)
+        button.concert-details-link(
+          type="button"
+          @click="showDetails(index)")
           ul.row.concert(:class="item.cancelled ? 'cancelled' : ''")
             li.date 
               p {{ item.date }}
@@ -16,12 +16,19 @@
     router-view.concert-detail
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "live",
   components: {},
   computed: {
     ...mapState(["live"])
+  },
+  methods: {
+    showDetails: function(index) {
+      const next = this.live.concerts[index]
+      this.$store.dispatch('live/setCurrentActive', index)
+      this.$router.push(`live/${next.date}-${next.value}`)
+    }
   }
 };
 </script>

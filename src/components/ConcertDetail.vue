@@ -9,7 +9,7 @@
         .date
           text-input(:value="live.currentActive.date" @onSave="saveDate")
         .venue
-          text-input(:value="live.currentActive.venue" @onSave="saveVenue")        
+          text-input(:value="live.currentActive.venue" @onSave="saveVenue")
         .short-info
           text-input(:value="live.currentActive.info" @onSave="saveShortInfo")
 </template>
@@ -39,9 +39,6 @@ export default {
         this.$router.push("/live");
       }
     }
-  },
-  created: function() {
-    this.$store.dispatch("live/setCurrentActive", this.$route.params.date);
   }
 };
 </script>

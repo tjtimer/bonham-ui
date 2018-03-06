@@ -6,22 +6,24 @@ async function wait(delay) {
   })
 }
 export default {
-  async setCurrentActive(store, date) {
-    console.log(date)
-    const item = store.state.concerts.filter((concert) => concert.date === date)[0]
-    store.commit(mt.SET_ACTIVE, item)
+  async setCurrentActive(store, index) {
+    store.commit(mt.SET_ACTIVE, index)
+
   },
   async closeDetails(store) {
     console.log("close: ");
-    if (store.state.currentActive.hasChanged === true)
+    if (store.state.currentActive.hasChanged === true) {
       await store.dispatch('saveDetails')
+    }
     store.commit(mt.SET_CLOSED)
+    console.log("closed details")
   },
   async saveDetails(store) {
-    await wait(2000)
+    console.log("saving details")
+    // await wait(2000)
     console.log("Time is out")
-    console.log("save details")
-    str.commit(mt.UPDATE_ORIGINAL, store.getters.currentIndex)
+    store.commit(mt.UPDATE_ORIGINAL)
+    console.log("details saved")
   },
   async saveDate(store, e) {
     console.log("save date: ", e);

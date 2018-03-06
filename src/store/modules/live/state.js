@@ -25,7 +25,6 @@ export default function () {
         cancelled: true
       }
     ],
-    concertIds: [1, 2, 3],
     currentActive: {
       id: null,
       date: "",
@@ -34,6 +33,7 @@ export default function () {
       info: "",
       cancelled: false,
       hasChanged: false
-    }
+    },
+    currentActiveIndex: null
   }
 }

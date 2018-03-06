@@ -1,3 +1,3 @@
 export default {
-  currentIndex: (state) => state.concertIds.indexOf(state.currentActive.id) || null
+  original: (state) => state.concerts[state.currentActiveIndex]
 }

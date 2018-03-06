@@ -2,24 +2,53 @@
   #concert-details(@click.stop="close")
     article.card
       h1 concert details
-      button.close(name="close" @click.stop="close") close
+      button(name="close" @click.stop="close")
+        x-square-icon
+      article.details
+        p id: {{live.currentActive.id}}
+        .date
+          text-input(:value="live.currentActive.date" @onSave="saveDate")
+        .venue
+          text-input(:value="live.currentActive.venue" @onSave="saveVenue")        
+        .short-info
+          text-input(:value="live.currentActive.info" @onSave="saveShortInfo")
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
+import { XSquare } from "vue-feather-icon";
+import TextInput from "../components/input/TextInput";
 export default {
   name: "concert-details",
+  components: {
+    "x-square-icon": XSquare,
+    "text-input": TextInput
+  },
+  computed: {
+    ...mapState(["live"])
+  },
   methods: {
-    close: function(e) {
+    ...mapActions({
+      saveDate: "live/saveDate",
+      saveVenue: "live/saveVenue",
+      saveShortInfo: "live/saveShortInfo"
+    }),
+    close(e) {
       const el = e.target;
-      if (el.id === "concert-details" || el.name === "close")
-        this.$router.go(-1);
+      if (el.id === "concert-details" || el.name === "close") {
+        this.$store.dispatch("live/closeDetails");
+        this.$router.push("/live");
+      }
     }
+  },
+  created: function() {
+    this.$store.dispatch("live/setCurrentActive", this.$route.params.date);
   }
 };
 </script>
 <style lang="scss" scoped>
 #concert-details {
   background: rgba(42, 42, 42, 0.3);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;

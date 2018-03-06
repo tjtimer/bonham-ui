@@ -1,8 +1,22 @@
 {
   "presets": [
-    "env"
+    [
+      "env", {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ], "stage-3"
   ],
   "plugins": [
-    "syntax-dynamic-import"
+    "syntax-dynamic-import", [
+      "transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true,
+        "moduleName": "babel-runtime"
+      }
+    ]
   ]
 }

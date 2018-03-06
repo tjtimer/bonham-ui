@@ -1,0 +1,5 @@
+export const SET_ACTIVE = 'SET_ACTIVE'
+export const SET_DETAIL_CHANGED = 'SET_DETAIL_CHANGED'
+export const SET_CLOSED = 'SET_CLOSED'
+
+export const UPDATE_ORIGINAL = 'UPDATE_ORIGINAL'

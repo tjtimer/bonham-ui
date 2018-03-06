@@ -1,41 +1,20 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import Router from 'vue-router'
 import App from './App.vue'
 
-import Home from './views/Home'
-import Live from './views/Live'
-import Contact from './views/Contact'
-import ConcertDetail from './components/ConcertDetail'
+import appRouter from './router'
+import appStore from './store'
 
 Vue.use(Router)
+Vue.use(Vuex)
 
-const router = new Router({
-  mode: 'history',
-  base: '/',
-  linkActiveClass: '',
-  linkExactActiveClass: 'active',
-  routes: [{
-    path: "/",
-    name: "home",
-    component: Home
-  }, {
-    path: "/live",
-    name: "live",
-    component: Live,
-    children: [{
-      path: "/live/:date",
-      name: "concertDetail",
-      component: ConcertDetail
-    }, ]
-  }, {
-    path: "/contact",
-    name: "contact",
-    component: Contact
-  }]
-})
+const router = new Router(appRouter)
+const store = new Vuex.Store(appStore)
 
 new Vue({
   el: '#app',
   render: h => h(App),
-  router
+  router,
+  store
 })

@@ -2,8 +2,10 @@
   #live
     h1 live
     ul.column.upcoming
-      li(v-for="item, index in concerts")
-        router-link.concert-details-link(:to="`${item.date}-${item.venue}`" append)
+      li(v-for="item, index in live.concerts")
+        router-link.concert-details-link(
+          :to="`${item.date}-${item.venue}`" 
+          params="item" append)
           ul.row.concert(:class="item.cancelled ? 'cancelled' : ''")
             li.date 
               p {{ item.date }}
@@ -11,37 +13,15 @@
               p {{ item.venue }} {{ item.city }}
             li.info
               p {{ item.info }}
-    router-view.overlay
+    router-view.concert-detail
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "live",
-  data() {
-    return {
-      concerts: [
-        {
-          date: "01.04.2018",
-          venue: "Jägerklause",
-          city: "Berlin",
-          info: "special guest: Operators",
-          cancelled: false
-        },
-        {
-          date: "02.04.2018",
-          venue: "Astrastube",
-          city: "Hamburg",
-          info: "special guest: Operators",
-          cancelled: false
-        },
-        {
-          date: "03.04.2018",
-          venue: "Medusa",
-          city: "Kiel",
-          info: "special guest: Operators",
-          cancelled: true
-        }
-      ]
-    };
+  components: {},
+  computed: {
+    ...mapState(["live"])
   }
 };
 </script>
@@ -49,8 +29,14 @@ export default {
 #live {
   border: 1px solid yellow;
   .concert-details-link {
-    background: rgba(100, 100, 120, 0.4);
+    background: rgba(#05a6f6, 0.4);
+    color: rgb(253, 129, 5);
     cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      background: adjust-hue($color: #05a6f6, $degrees: -15);
+      color: adjust-hue($color: rgb(253, 129, 5), $degrees: -45);
+    }
     .cancelled {
       text-decoration: line-through;
       position: relative;
@@ -61,7 +47,7 @@ export default {
         left: 0;
         display: block;
         color: red;
-        background: rgba(#666, 0.75);
+        background: rgba(#666, 0.5);
         text-transform: uppercase;
         text-align: center;
         width: 100%;

@@ -8,13 +8,17 @@
         span save
       article.concert.details
         .date
-          simple-input(:value="live.currentActive.date" type="Date" @onSave="saveDate")
+          simple-input(
+            title="Date" :value="live.currentActive.date" type="Date" @onSave="saveDate")
         .venue
-          simple-input(:value="live.currentActive.venue" @onSave="saveVenue")
+          simple-input(
+            title="Venue":value="live.currentActive.venue" @onSave="saveVenue")
         .short-info
-          simple-input(:value="live.currentActive.info" @onSave="saveShortInfo")
+          simple-input(
+            title="Info":value="live.currentActive.info" @onSave="saveShortInfo")
         .cancelled
-          simple-input(type="checkbox" :checked="live.currentActive.cancelled" @onSave="saveCancelled(!live.currentActive.cancelled)")
+          simple-input(
+            title="Cancelled" type="checkbox" :checked="live.currentActive.cancelled" @onSave="saveCancelled(!live.currentActive.cancelled)")
         p.small.right id: {{ live.currentActive.id }}
 </template>
 <script>

@@ -1,13 +1,14 @@
 <template lang="pug">
   .simple.input(:class="edit ? `${type} edit` : `${type} read`")
+    label {{ title }}
     input(
       v-if="edit"
       :type="type"
       :placeholder="value"
+      :checked="checked"
       v-model="changedValue"
       @change="$emit('onChange', changedValue)"
-      @blur="$emit('onBlur', changedValue)"
-      :checked="checked")
+      @blur="$emit('onBlur', changedValue)")
     p(v-else) {{ changedValue }}
     button.save(v-if="edit" @click="saveValue")
       span save
@@ -31,6 +32,10 @@ export default {
     };
   },
   props: {
+    title: {
+      type: String,
+      required: true
+    },
     type: {
       type: String,
       required: false,
@@ -66,3 +71,15 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.simple {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 6px 3px;
+  &.edit {}
+
+  &.read {}
+}
+</style>

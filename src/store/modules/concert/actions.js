@@ -1,6 +1,8 @@
 import * as mt from '../../mutation_types'
-
-async function wait(delay) {
+import {
+  warningChannel
+} from '../../channel'
+export async function wait(delay) {
   return new Promise(function (resolve) {
     setTimeout(resolve, delay)
   })
@@ -16,7 +18,11 @@ export default {
     }
     store.commit(mt.ON_CLOSE)
   },
-  async discardOrSave(store) {},
+  async discardOrSave(store) {
+    console.log(store)
+    await warningChannel.put("Really wanna quit, Dude? Unsaved changes...")
+    await store.dispatch('saveObject')
+  },
   async saveObject(store) {
     store.commit(mt.ON_UPDATE_OBJECT)
   },

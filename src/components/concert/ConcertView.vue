@@ -28,7 +28,7 @@ export default {
   methods: {
     showConcertDetails: function(index) {
       const next = this.concert.concerts[index];
-      this.$store.dispatch("concert/setCurrentActive", index);
+      this.$store.dispatch("concert/init", index);
       this.$router.push(`concert/${next.date}-${next.value}`);
     },
     addConcert: function() {

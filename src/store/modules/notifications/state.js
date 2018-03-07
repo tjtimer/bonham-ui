@@ -1,5 +1,6 @@
 export default function () {
   return {
+    namespaced: true,
     notificationHandler: {},
     errorHandler: {},
     warningHandler: {},
@@ -13,6 +14,7 @@ export default function () {
       'log': []
     },
     active: [],
+    receiving: true,
     hidden: 'ALL',
     closing: false,
     closed: false,

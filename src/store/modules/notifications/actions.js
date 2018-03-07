@@ -6,6 +6,12 @@ import {
   logChannel,
 } from '../../channel'
 import * as mt from '../../mutation_types'
+import {
+  Channel
+} from 'async-csp'
+import {
+  wait
+} from '../concert/actions'
 
 async function notificationHandler(store) {
   while (true) {
@@ -60,20 +66,22 @@ export default {
   async init(store) {
     console.log("initializing async insanity! :D")
     const messageHandler = {
-      'notification': notificationHandler(store),
-      'error': errorHandler(store),
-      'warning': warningHandler(store),
-      'debug': debugHandler(store),
-      'log': logHandler(store)
+      'notificationHandler': notificationHandler(store),
+      'errorHandler': errorHandler(store),
+      'warningHandler': warningHandler(store),
+      'debugHandler': debugHandler(store),
+      'logHandler': logHandler(store)
     }
     store.commit(mt.ON_OPEN, messageHandler)
   },
   async handleError(store, error) {
+    console.log("handleError", error)
     store.commit(mt.ON_RECEIVE, error)
     await wait(500)
     store.commit(mt.ON_CLOSE, ['error', error])
   },
   async handleWarning(store, warning) {
+    console.log("handleWarning", warning)
     store.commit(mt.ON_RECEIVE, warning)
     await wait(500)
     store.commit(mt.ON_CLOSE, ['warning', warning])

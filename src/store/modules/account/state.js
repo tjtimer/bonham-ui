@@ -1,5 +1,6 @@
 export default function () {
   return {
+    namespaced: true,
     active: false,
     activating: false,
     disabled: false,

@@ -1,11 +1,10 @@
 import * as mt from '../../mutation_types'
 
 export default {
-  [mt.ON_OPEN](state, handler) {
+  [mt.ON_OPEN](state, channel) {
     state = {
       ...state,
-      ...handler,
-      receiving: true
+      channel
     }
   },
   [mt.ON_RECEIVE](state, message) {
@@ -14,15 +13,15 @@ export default {
       ...state.messages[message.type] = { ...state.messages[message.type],
         [message.id]: message
       },
-      ...state.active = [...state.active, message.id]
+      ...state.idsActive = [...state.idsActive, message.id]
     }
   },
   [mt.ON_CLOSE](state, message) {
-    const idIndex = state.active.indexOf(message.id)
-    const len = state.active.length
-    state.active = [
-      ...state.active.slice(0, idIndex),
-      ...state.active.slice(idIndex + 1, len)
+    const idIndex = state.idsActive.indexOf(message.id)
+    const len = state.idsActive.length
+    state.idsActive = [
+      ...state.idsActive.slice(0, idIndex),
+      ...state.idsActive.slice(idIndex + 1, len)
     ]
   },
   [mt.ON_SUBSCRIBE](state, subscriber) {

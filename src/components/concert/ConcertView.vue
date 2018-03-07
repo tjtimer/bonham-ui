@@ -30,11 +30,11 @@ export default {
   methods: {
     showConcertDetails: function(index) {
       const next = this.concert.concerts[index];
-      this.$store.dispatch("concert/init", index);
+      this.$store.dispatch("concert/setup", index);
       this.$router.push(`concert/${next.date}-${next.value}`);
     },
     addConcert: function() {
-      this.$store.dispatch("concert/init", null);
+      this.$store.dispatch("concert/setup", null);
       this.$router.push(`concert/add-concert`);
     },
     deleteConcert: function(id) {
@@ -43,7 +43,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("concert/init");
+    this.$store.dispatch("concert/setup");
   }
 };
 </script>

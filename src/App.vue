@@ -28,12 +28,12 @@ export default {
         window.addEventListener("resize", this.handleResize);
       }, 1500);
     },
-    ...mapActions(["app", "notifications"])
+    ...mapActions(["notifications"])
   },
   created() {
     console.log("They created an app!");
     // this.$store.dispatch("app/init");
-    this.$store.dispatch("notifications/init");
+    this.$store.dispatch("notifications/setup");
   }
 };
 </script>

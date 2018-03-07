@@ -1,14 +1,7 @@
 import * as mt from '../../mutation_types'
-import {
-  warningChannel
-} from '../../channel'
-export async function wait(delay) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay)
-  })
-}
+
 export default {
-  async init(store, index) {
+  async setup(store, index) {
     store.commit(mt.ON_OPEN, index)
   },
   async closeDetails(store) {

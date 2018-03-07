@@ -1,3 +1,6 @@
+export const ON_SETUP = 'ON_SETUP'
+export const ON_SHUTDOWN = 'ON_SHUTDOWN'
+
 export const ON_OPEN = 'ON_OPEN'
 export const ON_CLOSE = 'ON_CLOSE'
 export const ON_TOGGLE = 'ON_TOGGLE'

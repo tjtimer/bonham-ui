@@ -2,11 +2,7 @@ export default function () {
   return {
     namespaced: true,
     channel: null,
-    notification: {},
-    error: {},
-    warning: {},
-    debug: {},
-    log: {},
+    messages: {},
     idsActive: [],
     showType: 'ALL',
     hide: true

@@ -1,4 +1,4 @@
-import  Channel, { STATE } from 'async-csp'
+import  Channel, { STATES } from 'async-csp'
 import { ChannelSubscribeError } from '../exceptions'
 
 
@@ -9,7 +9,7 @@ export default class BaseChannel extends Channel {
         this._id = Date.now()
         this._topic = topic
         this._created = new Date()
-        this._subscriber = new List()
+        this._subscriber = []
     }
     get id() {
         return this._id
@@ -24,13 +24,13 @@ export default class BaseChannel extends Channel {
         return this._created
     }
     get isRunning() {
-        return this[STATE] === STATE.OPEN
+        return this.state === STATES.OPEN
     }
     get isClosing() {
-        return this[STATE] === STATE.CLOSED
+        return this.state === STATES.CLOSED
     }
     get isClosed() {
-        return this[STATE] === STATE.ENDED
+        return this.state === STATES.ENDED
     }
     toString() {
         return `<MessageChannel id=${this._id} topic=${this._topic} isRunning=${this._isRunning}>`
@@ -42,10 +42,10 @@ export default class BaseChannel extends Channel {
         this._subscriber = [...this._subscriber, action]
     }
     start() {
-      return this._run()
+      this._run()
     }
     stop() {
-      return this._shutdown()
+      this._shutdown()
     }
     async _dispatch(msg) {
       const tasks = this._subscriber.map(

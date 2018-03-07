@@ -2,16 +2,13 @@ import * as mt from '../../mutation_types'
 
 export default {
   [mt.ON_OPEN](state, channel) {
-    state = {
-      ...state,
-      channel
-    }
+    state.channel = channel
   },
   [mt.ON_RECEIVE](state, message) {
     state = {
       ...state,
-      ...state.messages[message.type] = { ...state.messages[message.type],
-        [message.id]: message
+      ...state.messages[message.topic] = { ...state.messages[message.topic],
+        [message.topic]: message
       },
       ...state.idsActive = [...state.idsActive, message.id]
     }

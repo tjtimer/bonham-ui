@@ -1,10 +1,16 @@
 import * as mt from '../../mutation_types'
 import BaseChannel from '../../channel/channel'
+import { wait } from '../../utils'
+
 
 export default {
   async setup(store) {
-    console.log("initializing async insanity! :D")
-    store.commit(mt.ON_OPEN)
+    console.log("initializing async insanity! :D", store)
+    const chan = new BaseChannel(store, 'warning')
+    chan.subscribe('handleMessage')
+    chan.start()
+    console.log("showing channel: ", chan)
+    store.commit(mt.ON_OPEN, chan)
   },
   async handleMessage(store, message) {
     console.log("received message: ", message)

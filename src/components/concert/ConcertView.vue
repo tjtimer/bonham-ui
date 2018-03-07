@@ -12,6 +12,7 @@
             li.info
               p {{ concert.info }}
         button(type="button" @click="deleteConcert(index)")
+          delete-icon
       li.add-concert
         a.concert-add-link(@click.prevent="addConcert")
           p add a new show
@@ -19,9 +20,10 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
+import { Delete } from "vue-feather-icon";
 export default {
   name: "concert-view",
-  components: {},
+  components: { "delete-icon": Delete },
   computed: {
     ...mapState(["concert"])
   },
@@ -32,8 +34,12 @@ export default {
       this.$router.push(`concert/${next.date}-${next.value}`);
     },
     addConcert: function() {
-      this.$store.dispatch("concert/setCurrentActive", null);
+      this.$store.dispatch("concert/init", null);
       this.$router.push(`concert/add-concert`);
+    },
+    deleteConcert: function(id) {
+      this.$store.dispatch("concert/delete", id);
+      this.$router.push(`concert/`);
     }
   },
   created() {

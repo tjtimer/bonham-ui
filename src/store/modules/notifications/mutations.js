@@ -4,22 +4,26 @@ export default {
   [mt.ON_OPEN](state, handler) {
     state = {
       ...state,
-      ...handler
+      ...handler,
+      receiving: true
     }
   },
   [mt.ON_RECEIVE](state, message) {
     state = {
       ...state,
-      receiving: true
+      ...state.messages[message.type] = { ...state.messages[message.type],
+        [message.id]: message
+      },
+      ...state.active = [...state.active, message.id]
     }
   },
   [mt.ON_CLOSE](state, message) {
-    const [id, msg] = message
-    state = {
-      ...state,
-      ...state.messages[id] = [...state.messages[id], msg],
-      receiving: false
-    }
+    const idIndex = state.active.indexOf(message.id)
+    const len = state.active.length
+    state.active = [
+      ...state.active.slice(0, idIndex),
+      ...state.active.slice(idIndex + 1, len)
+    ]
   },
   [mt.ON_SUBSCRIBE](state, subscriber) {
     state = {

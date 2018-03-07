@@ -77,14 +77,23 @@ export default {
   async handleError(store, error) {
     console.log("handleError", error)
     store.commit(mt.ON_RECEIVE, error)
-    await wait(500)
+    await wait(5000)
     store.commit(mt.ON_CLOSE, ['error', error])
   },
-  async handleWarning(store, warning) {
-    console.log("handleWarning", warning)
+  async handleWarning(store, message) {
+    console.log("handleWarning", message)
+    const warning = {
+      message,
+      type: 'warning',
+      id: 'warning-' + Date.now(),
+      received: new Date().toLocaleString('de'),
+      unread: true,
+      archived: false
+    }
     store.commit(mt.ON_RECEIVE, warning)
-    await wait(500)
-    store.commit(mt.ON_CLOSE, ['warning', warning])
+    await wait(5000)
+    console.log("closing warning")
+    store.commit(mt.ON_CLOSE, warning)
   },
   async handleDebug(store, debug) {
     store.commit(mt.ON_RECEIVE, debug)

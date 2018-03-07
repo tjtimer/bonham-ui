@@ -60,5 +60,11 @@ export default {
       },
       ...state.concerts.slice(index + 1, state.concerts.length)
     ]
+  },
+  [mt.ON_DELETE_OBJECT](state, index) {
+    state.concerts = [
+      ...state.concerts.slice(0, index),
+      ...state.concerts.slice(index + 1, state.concerts.length)
+    ]
   }
 }

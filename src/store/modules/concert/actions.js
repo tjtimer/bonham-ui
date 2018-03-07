@@ -26,6 +26,9 @@ export default {
   async saveObject(store) {
     store.commit(mt.ON_UPDATE_OBJECT)
   },
+  async delete(store, id) {
+    store.commit(mt.ON_DELETE_OBJECT, id)
+  },
   async saveDate(store, e) {
     console.log("save date: ", e);
     store.commit(mt.ON_UPDATE_FIELD, ['date', e])

@@ -16,25 +16,25 @@ export default {
     await store.dispatch('saveObject')
   },
   async saveObject(store) {
-    store.commit(mt.ON_UPDATE_OBJECT)
+    store.commit(mt.ON_OBJECT_UPDATE)
   },
   async delete(store, id) {
-    store.commit(mt.ON_DELETE_OBJECT, id)
+    store.commit(mt.ON_OBJECT_DELETE, id)
   },
   async saveDate(store, e) {
     console.log("save date: ", e);
-    store.commit(mt.ON_UPDATE_FIELD, ['date', e])
+    store.commit(mt.ON_FIELD_UPDATE, ['date', e])
   },
   async saveVenue(store, e) {
     console.log("save venue: ", e);
-    store.commit(mt.ON_UPDATE_FIELD, ['venue', e])
+    store.commit(mt.ON_FIELD_UPDATE, ['venue', e])
   },
   async saveShortInfo(store, e) {
     console.log("save short info: ", e);
-    store.commit(mt.ON_UPDATE_FIELD, ['info', e])
+    store.commit(mt.ON_FIELD_UPDATE, ['info', e])
   },
   async saveCancelled(store, e) {
     console.log("save cancelled: ", e);
-    store.commit(mt.ON_UPDATE_FIELD, ['cancelled', e])
+    store.commit(mt.ON_FIELD_UPDATE, ['cancelled', e])
   }
 }

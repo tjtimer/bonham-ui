@@ -19,7 +19,7 @@ export default {
       hasChanged: false
     }
   },
-  [mt.ON_UPDATE_FIELD](state, payload) {
+  [mt.ON_FIELD_UPDATE](state, payload) {
     const [field, value] = payload
     state = {
       ...state,

@@ -34,6 +34,6 @@ export default function () {
       cancelled: false,
       hasChanged: false
     },
-    activeIndex: null
+    indexActive: null
   }
 }

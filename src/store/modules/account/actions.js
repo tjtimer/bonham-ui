@@ -46,14 +46,14 @@ export default {
   },
   async saveName(store, e) {
     console.log("save name: ", e);
-    store.commit(mt.ON_UPDATE_FIELD, ['name', e])
+    store.commit(mt.ON_FIELD_UPDATE, ['name', e])
   },
   async saveEmail(store, e) {
     console.log("save email: ", e);
-    store.commit(mt.ON_UPDATE_FIELD, ['email', e])
+    store.commit(mt.ON_FIELD_UPDATE, ['email', e])
   },
   async saveAvatarURL(store, e) {
     console.log("save avatar URL: ", e);
-    store.commit(mt.ON_UPDATE_FIELD, ['avatarURL', e])
+    store.commit(mt.ON_FIELD_UPDATE, ['avatarURL', e])
   }
 }

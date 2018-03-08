@@ -5,12 +5,12 @@ export const ON_OPEN = 'ON_OPEN'
 export const ON_CLOSE = 'ON_CLOSE'
 export const ON_TOGGLE = 'ON_TOGGLE'
 
-export const ON_UPDATE_FIELD = 'ON_UPDATE_FIELD'
-export const ON_RESET_FIELD = 'ON_RESET_FIELD'
+export const ON_FIELD_UPDATE = 'ON_FIELD_UPDATE'
+export const ON_FIELD_RESET = 'ON_FIELD_RESET'
 
-export const ON_CREATE_OBJECT = 'ON_CREATE_OBJECT'
-export const ON_UPDATE_OBJECT = 'ON_UPDATE_OBJECT'
-export const ON_DELETE_OBJECT = 'ON_DELETE_OBJECT'
+export const ON_OBJECT_CREATE = 'ON_OBJECT_CREATE'
+export const ON_OBJECT_UPDATE = 'ON_OBJECT_UPDATE'
+export const ON_OBJECT_DELETE = 'ON_OBJECT_DELETE'
 
 export const ON_SEND = 'ON_SEND'
 export const ON_RECEIVE = 'ON_RECEIVE'

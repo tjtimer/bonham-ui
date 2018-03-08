@@ -1,3 +1,3 @@
 export default {
-  original: (state) => state.concerts[state.activeIndex]
+  original: (state) => state.concerts[state.indexActive]
 }

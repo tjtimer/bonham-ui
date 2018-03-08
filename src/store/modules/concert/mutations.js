@@ -8,14 +8,14 @@ export default {
         date: new Date(),
         hasChanged: false
       }
-      state.activeIndex = state.concerts.length
+      state.indexActive = state.concerts.length
     } else {
       state.active = {
         ...state.active,
         ...state.concerts[index],
         hasChanged: false
       }
-      state.activeIndex = index
+      state.indexActive = index
     }
   },
   [mt.ON_CLOSE](state) {
@@ -28,9 +28,9 @@ export default {
       cancelled: false,
       hasChanged: false
     }
-    state.activeIndex = null
+    state.indexActive = null
   },
-  [mt.ON_UPDATE_FIELD](state, payload) {
+  [mt.ON_FIELD_UPDATE](state, payload) {
     const [field, value] = payload
     state.active = {
       ...state.active,
@@ -38,8 +38,8 @@ export default {
       hasChanged: true
     }
   },
-  [mt.ON_UPDATE_OBJECT](state) {
-    const index = parseInt(state.activeIndex)
+  [mt.ON_OBJECT_UPDATE](state) {
+    const index = parseInt(state.indexActive)
     const {
       id,
       date,
@@ -61,7 +61,7 @@ export default {
       ...state.concerts.slice(index + 1, state.concerts.length)
     ]
   },
-  [mt.ON_DELETE_OBJECT](state, index) {
+  [mt.ON_OBJECT_DELETE](state, index) {
     state.concerts = [
       ...state.concerts.slice(0, index),
       ...state.concerts.slice(index + 1, state.concerts.length)

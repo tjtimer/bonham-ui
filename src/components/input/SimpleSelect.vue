@@ -5,7 +5,6 @@
       li.option(v-for="option in options" @click="$emit('onSelect', option)") 
         span {{ option }}
         check-icon(v-if="option === value")
-
     p(v-else) {{ value }}
     button.toggle(@click="toggleEdit")
       x-square-icon(v-if="edit")
@@ -62,8 +61,14 @@ export default {
   justify-content: space-between;
   align-items: stretch;
   padding: 6px 3px;
-  &.edit {}
+  &.read {
+    background: #222;
+    color: #5af;
+  }
 
-  &.read {}
+  &.edit {
+    background: #5af;
+    color: #222;
+  }
 }
 </style>

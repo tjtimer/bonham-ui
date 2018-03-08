@@ -1,70 +1,47 @@
 import * as mt from '../../mutation_types'
 
 export default {
-  [mt.ON_OPEN](state, index) {
-    if (index === null) {
-      state.active = {
-        ...state.active,
-        date: new Date(),
-        hasChanged: false
-      }
-      state.indexActive = state.concerts.length
-    } else {
-      state.active = {
-        ...state.active,
-        ...state.concerts[index],
-        hasChanged: false
-      }
-      state.indexActive = index
+  [mt.ON_OPEN](state, id) {
+    state.active = {
+      ...state.concerts[id]
     }
   },
   [mt.ON_CLOSE](state) {
-    state.active = {
-      id: null,
-      date: "",
-      venue: "",
-      city: "",
-      info: "",
-      cancelled: false,
-      hasChanged: false
-    }
-    state.indexActive = null
+    state.active = null
   },
-  [mt.ON_FIELD_UPDATE](state, payload) {
-    const [field, value] = payload
+  [mt.ON_FIELD_UPDATE](state, [field, value]) {
+    const hasChanged = state.concerts[state.active.id][field] ===  value
     state.active = {
       ...state.active,
       [field]: value,
-      hasChanged: true
+      hasChanged: hasChanged
+    }
+  },
+  [mt.ON_OBJECT_CREATE](state) {
+    state.active = {
+      id: Date.now(),
+      date: new Date(),
+      venue: '',
+      city: '',
+      info: '',
+      status: 'tba'
     }
   },
   [mt.ON_OBJECT_UPDATE](state) {
-    const index = parseInt(state.indexActive)
-    const {
-      id,
-      date,
-      venue,
-      city,
-      info,
-      cancelled
-    } = state.active
-    state.concerts = [
-      ...state.concerts.slice(0, index),
-      { ...state.concerts[index],
-        id,
-        date,
-        venue,
-        city,
-        info,
-        cancelled
-      },
-      ...state.concerts.slice(index + 1, state.concerts.length)
-    ]
+    state.concerts[state.active.id] = {...state.active}
+    state.saved = false
   },
-  [mt.ON_OBJECT_DELETE](state, index) {
-    state.concerts = [
-      ...state.concerts.slice(0, index),
-      ...state.concerts.slice(index + 1, state.concerts.length)
-    ]
+  [mt.ON_OBJECT_DELETE](state, id) {
+    delete state.concerts[id]
+    state.concerts = {...state.concerts}
+    state.deletedIds = [...state.deletedIds, id]
+    state.saved = false
+  },
+  [mt.ON_SEND](state) {
+    state.isSaving = true
+  },
+  [mt.ON_RECEIVE](state, status) {
+    state.isSaving = false
+    state.saved = status
   }
 }

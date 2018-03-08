@@ -1,40 +1,43 @@
 import * as mt from '../../mutation_types'
 
 export default {
-  async setup(store, index) {
+  async setup(store) {
+    store.commit(mt.ON_SETUP)
+  },
+  async openDetails(store, index) {
     store.commit(mt.ON_OPEN, index)
   },
-  async closeDetails(store) {
+  async closeDetails(store, discard=false) {
     console.log("close: ");
-    if (store.state.active.hasChanged === true) {
+    if (discard===false && store.state.active.hasChanged === true) {
       await store.dispatch('discardOrSave')
     }
     store.commit(mt.ON_CLOSE)
   },
   async discardOrSave(store) {
     console.log("discard or save: store -> ", store)
-    await store.dispatch('saveObject')
+    // await store.dispatch('saveObject')
   },
   async saveObject(store) {
     store.commit(mt.ON_OBJECT_UPDATE)
   },
-  async delete(store, id) {
+  async deleteObject(store, id) {
     store.commit(mt.ON_OBJECT_DELETE, id)
   },
-  async saveDate(store, e) {
-    console.log("save date: ", e);
-    store.commit(mt.ON_FIELD_UPDATE, ['date', e])
+  async updateDate(store, value) {
+    console.log("save date: ", value);
+    store.commit(mt.ON_FIELD_UPDATE, ['date', value])
   },
-  async saveVenue(store, e) {
-    console.log("save venue: ", e);
-    store.commit(mt.ON_FIELD_UPDATE, ['venue', e])
+  async updateVenue(store, value) {
+    console.log("save venue: ", value);
+    store.commit(mt.ON_FIELD_UPDATE, ['venue', value])
   },
-  async saveShortInfo(store, e) {
-    console.log("save short info: ", e);
-    store.commit(mt.ON_FIELD_UPDATE, ['info', e])
+  async updateInfo(store, value) {
+    console.log("save short info: ", value);
+    store.commit(mt.ON_FIELD_UPDATE, ['info', value])
   },
-  async saveCancelled(store, e) {
-    console.log("save cancelled: ", e);
-    store.commit(mt.ON_FIELD_UPDATE, ['cancelled', e])
+  async updateStatus(store, value) {
+    console.log("save status: ", value);
+    store.commit(mt.ON_FIELD_UPDATE, ['status', value])
   }
 }

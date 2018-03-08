@@ -2,24 +2,29 @@
   #concert-details(@click.stop="close")
     article.card
       h1 concert details
-      button(name="close" @click.stop="close")
+      button(type="button" name="close" @click.stop="close")
         x-square-icon
-      button(name="save" @click.stop="save" :disabled="!concert.active.hasChanged" )
+      .details
+        .field.date
+          simple-input(
+            title="date" :value="concert.active.date" type="Date" @onSave="updateDate")
+        .field.venue
+          simple-input(
+            title="venue" :value="concert.active.venue" @onSave="updateVenue")
+        .field.info
+          simple-input(
+            title="info" :value="concert.active.info" @onSave="updateInfo")
+        .field.status
+          simple-select(
+            title="status" 
+            :options="concert.statusTypes"
+            :value="concert.active.status"
+            @onSelect="updateStatus")
+        p.id.small.right id: {{ concert.active.id }}
+      button(type="button" name="save" @click.stop="save" :disabled="!concert.active.hasChanged" )
         span save
-      article.concert.details
-        .date
-          simple-input(
-            title="date" :value="concert.active.date" type="Date" @onSave="saveDate")
-        .venue
-          simple-input(
-            title="venue" :value="concert.active.venue" @onSave="saveVenue")
-        .short-info
-          simple-input(
-            title="info" :value="concert.active.info" @onSave="saveShortInfo")
-        .cancelled
-          simple-input(
-            title="cancelled" type="checkbox" :checked="concert.active.cancelled" @onSave="saveCancelled(!concert.active.cancelled)")
-        p.small.right id: {{ concert.active.id }}
+      button(type="button" name="cancel" @click.stop="cancel" :disabled="!concert.active.hasChanged" )
+        span cancel
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
@@ -36,22 +41,25 @@ export default {
   },
   methods: {
     ...mapActions({
-      saveDate: "concert/saveDate",
-      saveVenue: "concert/saveVenue",
-      saveShortInfo: "concert/saveShortInfo",
-      saveCancelled: "concert/saveCancelled"
+      updateDate: "concert/updateDate",
+      updateVenue: "concert/updateVenue",
+      updateInfo: "concert/updateInfo",
+      updateStatus: "concert/updateStatus"
     }),
+    cancel() {
+      this.$store.dispatch("concert/closeDetails", true);
+      this.$router.push("/concert");
+    },
+    save() {
+      this.$store.dispatch("concert/saveObject");
+      this.$router.push("/concert");
+    },
     close(e) {
       const el = e.target;
       if (el.id === "concert-details" || el.name === "close") {
         this.$store.dispatch("concert/closeDetails");
         this.$router.push("/concert");
       }
-    },
-    save() {
-      this.$store.dispatch("concert/closeDetails");
-      // this.$store.dispatch("concert/saveObject");
-      this.$router.push("/concert");
     }
   }
 };
@@ -68,16 +76,19 @@ export default {
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  z-index: 0;
   .card {
     position: relative;
     display: flex;
     flex-flow: column;
     flex: 0 0 auto;
-    background: #667;
-    color: #6af;
-    padding: 1rem;
+    background: #59caf6;
+    color: #310;
+    padding: 1.5rem;
     z-index: 100;
+  }
+  .field {
+    padding: 1.2rem 2rem;
+    font-size: 1.4rem;
   }
 }
 </style>

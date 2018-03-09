@@ -38,11 +38,6 @@ export default {
     "simple-input": SimpleInput,
     "simple-select": SimpleSelect
   },
-  props: {
-    concert: Object,
-    required: false,
-    default: {}
-  },
   computed: {
     ...mapState(["concert"])
   },
@@ -50,9 +45,10 @@ export default {
     ...mapActions({
       updateField: "concert/updateField"
     }),
-    done(type) {
-      if (type === "save") this.$store.dispatch("concert/saveObject");
-      else this.$store.dispatch("concert/closeDetails", type === "cancel");
+    async done(type) {
+      if (type === "save") await this.$store.dispatch("concert/saveObject");
+      else
+        await this.$store.dispatch("concert/closeDetails", type === "cancel");
       this.$router.push("/concert");
     }
   }

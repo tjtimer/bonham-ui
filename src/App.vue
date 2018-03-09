@@ -14,11 +14,9 @@ export default {
   },
   computed: {
     ...mapState(["app"]),
-    ...mapGetters({
-      layout: "app/layout"
-    })
+    ...mapGetters({ layout: "app/layout" })
   },
-  created() {
+  beforeMount() {
     this.$store.dispatch("app/setup");
   }
 };

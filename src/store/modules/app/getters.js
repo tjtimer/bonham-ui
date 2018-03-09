@@ -1,3 +1,3 @@
 export default {
-  layout: () => window.screenX > window.screenY ? 'landscape' : 'portrait'
+  layout: _ => (window.screenX > window.screenY) ? 'landscape' : 'portrait'
 }

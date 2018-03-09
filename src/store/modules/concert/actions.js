@@ -1,21 +1,10 @@
 import * as mt from "../../mutation_types";
-import { warningReceiver } from "../../channels";
-import ConcertDetail from "../../../components/concert/ConcertDetail";
+import {
+  warningReceiver
+} from "../../channels";
 
 export default {
   async setup(store, router) {
-    router.addRoutes([
-      {
-        path: "/concert/:date-:venue",
-        name: "concertDetail",
-        component: ConcertDetail
-      },
-      {
-        path: "/concert/add-concert/:id",
-        name: "addConcert",
-        component: ConcertDetail
-      }
-    ]);
     store.commit(mt.ON_SETUP);
   },
   async openDetails(store, concert) {
@@ -36,7 +25,10 @@ export default {
   async saveObject(store) {
     store.commit(mt.ON_OBJECT_UPDATE);
   },
-  async deleteObject(store, id) {
+  async addConcert(store) {
+    store.commit(mt.ON_OBJECT_CREATE);
+  },
+  async deleteConcert(store, id) {
     store.commit(mt.ON_OBJECT_DELETE, id);
   },
   async updateField(store, [field, value]) {

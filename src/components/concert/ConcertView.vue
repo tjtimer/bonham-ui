@@ -3,21 +3,18 @@
     h1 concert
     ul.column.upcoming
       li(v-for="concert, index in concert.concerts")
-        a.concert.to-details(:to="{path:`/${concert.date}-${concert.venue}`, params: {concert: concert}}")
-          ul.row.concert(:class="concert.status")
+        a.concert-details-link(:class="concert.status" @click.prevent="openDetails(concert)")
+          ul.row
             li.date 
               p {{ concert.date }}
             li.venue
               p {{ concert.venue }} {{ concert.city }}
             li.info
               p {{ concert.info }}
-        button.concert-delete(
-          type="button" 
-          name="concert-delete"
-          @click.prevent="deleteConcert(concert.id)")
+        button(type="button" @click="deleteConcert(concert.id)")
           delete-icon
-      li.concert-add
-        a(:to="`/concert/add-concert/${Date.now()}`")
+      li.add-concert
+        a.concert-add-link(@click.prevent="addConcert")
           p add a new show
     router-view.concert-detail
 </template>
@@ -31,20 +28,20 @@ export default {
     ...mapState(["concert"])
   },
   methods: {
-    showConcertDetails: function(concert) {
-      this.$store.dispatch("concert/openDetails", concert);
+    async openDetails(concert) {
+      await this.$store.dispatch("concert/openDetails", concert);
       this.$router.push(`concert/${concert.date}-${concert.venue}`);
     },
-    addConcert: function() {
-      this.$store.dispatch("concert/openDetails", {});
+    addConcert() {
+      this.$store.dispatch("concert/addConcert");
       this.$router.push(`concert/add-concert`);
     },
-    deleteConcert: function(id) {
-      this.$store.dispatch("concert/delete", id);
+    deleteConcert(id) {
+      this.$store.dispatch("concert/deleteConcert", id);
       this.$router.push(`concert/`);
     }
   },
-  created() {
+  beforeCreate() {
     this.$store.dispatch("concert/setup", this.$router);
   }
 };
@@ -53,15 +50,15 @@ export default {
 #concert-view {
   border: 1px solid yellow;
   .concert-details-link {
-    background: rgba(#05a6f6, 0.4);
-    color: rgb(253, 129, 5);
+    background: #05a6a6;
+    color: white;
     cursor: pointer;
     text-decoration: none;
     &:hover {
       background: adjust-hue($color: #05a6f6, $degrees: -15);
       color: adjust-hue($color: rgb(253, 129, 5), $degrees: -45);
     }
-    .cancelled {
+    &.cancelled {
       text-decoration: line-through;
       position: relative;
       &::after {
@@ -76,6 +73,10 @@ export default {
         text-align: center;
         width: 100%;
       }
+    }
+    &.requested {
+      color: #00ffff;
+      background: rgba(255, 166, 0, 0.308);
     }
   }
 }

@@ -1,24 +1,25 @@
 <template lang="pug">
-  #app(:class="ready ? `ready ${layout}` : 'loading'")
+  #app(:class="app.isReady ? `ready ${layout}` : 'loading'")
     app-header
     router-view
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import AppHeader from "./components/layout/AppHeader";
 export default {
   name: "app",
   components: {
     AppHeader
   },
-  data() {
-    return {
-      layout: "",
-      ready: false
-    };
+  computed: {
+    ...mapState(["app"]),
+    ...mapGetters({
+      layout: "app/layout"
+    })
   },
   created() {
-    this.$store.dispatch("notifications/setup");
+    this.$store.dispatch("app/setup");
   }
 };
 </script>

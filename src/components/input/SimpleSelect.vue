@@ -2,7 +2,7 @@
   .simple.select(:class="edit ? `edit` : `read`")
     label {{ title }}
     ul.edit(v-if="edit")
-      li.option(v-for="option in options" @click="$emit('onSelect', option)") 
+      li.option(v-for="option in options" @click="select(option)") 
         span {{ option }}
         check-icon(v-if="option === value")
     p(v-else) {{ value }}
@@ -49,6 +49,10 @@ export default {
   methods: {
     toggleEdit() {
       this.edit = !this.edit;
+    },
+    select(option) {
+      this.$emit("onSelect", [this.title, option]);
+      this.toggleEdit();
     }
   }
 };
@@ -68,6 +72,7 @@ export default {
   }
 
   .edit {
+    cursor: pointer;
     background: #5af;
     color: #222;
     display: flex;

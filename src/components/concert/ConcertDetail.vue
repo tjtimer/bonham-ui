@@ -2,28 +2,28 @@
   #concert-details
     article.card
       h1 concert details
-      button(type="button" name="close" @click.stop="close")
+      button(type="button" name="close" @click.stop="done('close')")
         x-square-icon
       .details
         .field.date
           simple-input(
-            title="date" :value="concert.active.date" type="Date" @onSave="updateDate")
+            title="date" :value="concert.active.date" type="Date" @onSave="updateField")
         .field.venue
           simple-input(
-            title="venue" :value="concert.active.venue" @onSave="updateVenue")
+            title="venue" :value="concert.active.venue" @onSave="updateField")
         .field.info
           simple-input(
-            title="info" :value="concert.active.info" @onSave="updateInfo")
+            title="info" :value="concert.active.info" @onSave="updateField")
         .field.status
           simple-select(
             title="status" 
             :options="concert.statusTypes"
             :value="concert.active.status"
-            @onSelect="updateStatus")
+            @onSelect="updateField")
         p.id.small.right id: {{ concert.active.id }}
-      button(type="button" name="save" @click.stop="save" :disabled="!concert.active.hasChanged" )
+      button(type="button" name="save" @click.stop="done('save')" :disabled="!concert.active.hasChanged" )
         span save
-      button(type="button" name="cancel" @click.stop="cancel" )
+      button(type="button" name="cancel" @click.stop="done('cancel')" )
         span cancel
 </template>
 <script>
@@ -38,26 +38,21 @@ export default {
     "simple-input": SimpleInput,
     "simple-select": SimpleSelect
   },
+  props: {
+    concert: Object,
+    required: false,
+    default: {}
+  },
   computed: {
     ...mapState(["concert"])
   },
   methods: {
     ...mapActions({
-      updateDate: "concert/updateDate",
-      updateVenue: "concert/updateVenue",
-      updateInfo: "concert/updateInfo",
-      updateStatus: "concert/updateStatus"
+      updateField: "concert/updateField"
     }),
-    cancel() {
-      this.$store.dispatch("concert/closeDetails", true);
-      this.$router.push("/concert");
-    },
-    save() {
-      this.$store.dispatch("concert/saveObject");
-      this.$router.push("/concert");
-    },
-    close() {
-      this.$store.dispatch("concert/closeDetails");
+    done(type) {
+      if (type === "save") this.$store.dispatch("concert/saveObject");
+      else this.$store.dispatch("concert/closeDetails", type === "cancel");
       this.$router.push("/concert");
     }
   }

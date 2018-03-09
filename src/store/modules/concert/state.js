@@ -1,39 +1,33 @@
-export default function () {
+export default function() {
   return {
     concerts: {
       1: {
         id: 1,
-        date: '01.04.2018',
-        venue: 'Jägerklause',
-        city: 'Berlin',
-        info: 'special guest: Operators',
-        status: 'published',
-        hasChanged: false
+        date: "01.04.2018",
+        venue: "Jägerklause",
+        city: "Berlin",
+        info: "special guest: Operators",
+        status: "published"
       },
       2: {
         id: 2,
-        date: '02.04.2018',
-        venue: 'Astrastube',
-        city: 'Hamburg',
-        info: 'special guest: Operators',
-        status: 'published',
-        hasChanged: false
+        date: "02.04.2018",
+        venue: "Astrastube",
+        city: "Hamburg",
+        info: "special guest: Operators",
+        status: "published"
       },
       3: {
         id: 3,
-        date: '03.04.2018',
-        venue: 'Medusa',
-        city: 'Kiel',
-        info: 'special guest: Operators',
-        status: 'cancelled',
-        hasChanged: false
+        date: "03.04.2018",
+        venue: "Medusa",
+        city: "Kiel",
+        info: "special guest: Operators",
+        status: "cancelled"
       }
     },
-    statusTypes: ['tba', 'requested', 'cancelled', 'published'],
-    concertIds: [1, 2, 3],
-    deletedIds: [],
     active: {},
-    saved: true,
+    statusTypes: ["tba", "requested", "cancelled", "published"],
     saving: false
-  }
+  };
 }

@@ -7,8 +7,8 @@
       :placeholder="value"
       :checked="checked"
       v-model="changedValue"
-      @change="$emit('onChange', changedValue)"
-      @blur="$emit('onBlur', changedValue)")
+      @change="$emit('onChange', [title, changedValue])"
+      @blur="$emit('onBlur', [title, changedValue])")
     p(v-else) {{ changedValue }}
     button.save(v-if="edit" @click="saveValue")
       span save
@@ -57,7 +57,7 @@ export default {
       this.edit = !this.edit;
     },
     saveValue: function() {
-      this.$emit("onSave", this.changedValue);
+      this.$emit("onSave", [this.title, this.changedValue]);
       this.toggleEdit();
     }
   },

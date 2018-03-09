@@ -3,7 +3,7 @@
     h1 concert
     ul.column.upcoming
       li(v-for="concert, index in concert.concerts")
-        a.concert-details-link(@click.prevent="showConcertDetails(concert)")
+        a.concert.to-details(:to="{path:`/${concert.date}-${concert.venue}`, params: {concert: concert}}")
           ul.row.concert(:class="concert.status")
             li.date 
               p {{ concert.date }}
@@ -11,15 +11,18 @@
               p {{ concert.venue }} {{ concert.city }}
             li.info
               p {{ concert.info }}
-        button(type="button" @click="deleteConcert(concert.id)")
+        button.concert-delete(
+          type="button" 
+          name="concert-delete"
+          @click.prevent="deleteConcert(concert.id)")
           delete-icon
-      li.add-concert
-        a.concert-add-link(@click.prevent="addConcert")
+      li.concert-add
+        a(:to="`/concert/add-concert/${Date.now()}`")
           p add a new show
     router-view.concert-detail
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 import { Delete } from "vue-feather-icon";
 export default {
   name: "concert-view",
@@ -42,7 +45,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("concert/setup");
+    this.$store.dispatch("concert/setup", this.$router);
   }
 };
 </script>

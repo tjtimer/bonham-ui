@@ -28,8 +28,8 @@ export default {
     ...mapState(["concert"])
   },
   methods: {
-    async openDetails(concert) {
-      await this.$store.dispatch("concert/openDetails", concert);
+    openDetails(concert) {
+      this.$store.dispatch("concert/openDetails", concert);
       this.$router.push(`concert/${concert.date}-${concert.venue}`);
     },
     addConcert() {

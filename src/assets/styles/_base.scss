@@ -45,16 +45,18 @@ a {
 
 ul {
   display: flex;
-  &.row {
-    flex-flow: row wrap;
-  }
-  &.column {
-    flex-flow: column;
-  }
 }
 
 li {
   padding: 0.3rem;
   display: inline-flex;
   flex: 1 auto;
+}
+
+.row {
+  flex-flow: row wrap;
+}
+
+.column {
+  flex-flow: column;
 }

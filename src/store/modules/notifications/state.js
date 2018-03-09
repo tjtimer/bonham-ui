@@ -1,12 +1,12 @@
 export default function () {
   return {
+    isReady: false,
     channels: [],
-    messages: {},
-    activeMessages: {},
+    notes: {},
+    activeNoteIds: [],
     timeoutActive: {
-      'default': 1000
+      'default': 25000
     },
-    showType: 'ALL',
-    hide: true
+    showType: 'ALL'
   }
 }

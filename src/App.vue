@@ -2,15 +2,18 @@
   #app(:class="app.isReady ? `ready ${layout}` : 'loading'")
     app-header
     router-view
+    active-notes
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
 import AppHeader from "./components/layout/AppHeader";
+import ActiveNotes from "./components/notifications/ActiveNotes";
 export default {
   name: "app",
   components: {
-    AppHeader
+    AppHeader,
+    ActiveNotes
   },
   computed: {
     ...mapState(["app"]),

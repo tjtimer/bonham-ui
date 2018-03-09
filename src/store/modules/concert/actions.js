@@ -1,5 +1,6 @@
 import * as mt from "../../mutation_types";
 import {
+  debugReceiver,
   warningReceiver
 } from "../../channels";
 
@@ -8,18 +9,18 @@ export default {
     store.commit(mt.ON_SETUP);
   },
   async openDetails(store, concert) {
-    await warningReceiver.put("opening concert details!");
+    await debugReceiver.put("opening concert details!");
     store.commit(mt.ON_OPEN, concert);
   },
   async closeDetails(store, discard = false) {
-    console.log("close: ");
+    await debugReceiver.put("closing concert details!");
     if (discard === false && store.state.active.hasChanged === true) {
       await store.dispatch("discardOrSave");
     }
     store.commit(mt.ON_CLOSE);
   },
   async discardOrSave(store) {
-    console.log("discard or save: store -> ", store);
+    await warningReceiver.put("discard or save?");
     // await store.dispatch('saveObject')
   },
   async saveObject(store) {

@@ -55,12 +55,13 @@ export default class Receiver extends Channel {
         while (true) {
             const msg = {
                 id: Date.now(),
+                topic: this._topic,
                 message: await this.take()
             }
             if (msg.message === this.DONE) {
                 return await this._shutdown()
             }
-            await this._store.dispatch(this._handler, [this._topic, msg])
+            await this._store.dispatch(this._handler, msg)
         }
     }
     async _shutdown() {

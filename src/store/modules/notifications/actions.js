@@ -9,29 +9,41 @@ import {
   wait
 } from '../../utils'
 
-
+function getIndex(list, item) {
+  const what = list.map((elem, index) => {
+    if (elem[0] === item.topic && elem[1] === item.id) return index
+  })
+  console.log("getIndex", what)
+  return what[0]
+}
 export default {
   async setup(store) {
-    console.log("initializing async insanity! :D", store)
     const channels = await Promise.all([
       debugReceiver.setup(store, 'handleMessage'),
       infoReceiver.setup(store, 'handleMessage'),
       warningReceiver.setup(store, 'handleMessage'),
       errorReceiver.setup(store, 'handleMessage')
     ])
-    console.log("showing receiver: ", channels)
     store.commit(mt.ON_SETUP, channels)
   },
-  async handleMessage(store, [topic, message]) {
-    console.log("received message: ", message)
-    store.commit(mt.ON_RECEIVE, message)
-    await wait(store.state.timeoutActive[topic] || store.state.timeoutActive.default)
-    console.log("closing active message: ", message)
-    store.commit(mt.ON_CLOSE, [topic, message.id])
+  async handleMessage(store, note) {
+    store.commit(mt.ON_RECEIVE, note)
+    store.dispatch('waitAndRemove', note)
+  },
+  async waitAndRemove(store, note) {
+    await wait(store.state.timeoutActive[note.topic] || store.state.timeoutActive.default)
+    store.commit(mt.ON_CLOSE, note)
+  },
+  async archiveNote(store, note) {
+    store.commit(mt.ON_CLOSE, note)
+    store.commit(mt.ON_OBJECT_UPDATE, [note.topic, note.id])
+  },
+  async deleteNote(store, note) {
+    store.commit(mt.ON_CLOSE, note)
+    store.commit(mt.ON_OBJECT_DELETE, [note.topic, note.id])
   },
   async shutdown(store) {
-    store.state.channels.map(channel => channel.close)
-    await Promise.all(store.state.channels.map(async channel => channel.done))
+    await Promise.all(store.state.channels.map(async channel => await channel.done))
     console.log("shutdown success!", store.state)
   }
 }

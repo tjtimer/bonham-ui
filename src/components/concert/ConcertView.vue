@@ -3,15 +3,15 @@
     h1 concert
     ul.column.upcoming
       li(v-for="concert, index in concert.concerts")
-        a.concert-details-link(@click.prevent="showConcertDetails(index)")
-          ul.row.concert(:class="concert.cancelled ? 'cancelled' : ''")
+        a.concert-details-link(@click.prevent="showConcertDetails(concert)")
+          ul.row.concert(:class="concert.status")
             li.date 
               p {{ concert.date }}
             li.venue
               p {{ concert.venue }} {{ concert.city }}
             li.info
               p {{ concert.info }}
-        button(type="button" @click="deleteConcert(index)")
+        button(type="button" @click="deleteConcert(concert.id)")
           delete-icon
       li.add-concert
         a.concert-add-link(@click.prevent="addConcert")
@@ -28,13 +28,12 @@ export default {
     ...mapState(["concert"])
   },
   methods: {
-    showConcertDetails: function(index) {
-      const next = this.concert.concerts[index];
-      this.$store.dispatch("concert/setup", index);
-      this.$router.push(`concert/${next.date}-${next.value}`);
+    showConcertDetails: function(concert) {
+      this.$store.dispatch("concert/openDetails", concert);
+      this.$router.push(`concert/${concert.date}-${concert.venue}`);
     },
     addConcert: function() {
-      this.$store.dispatch("concert/setup", null);
+      this.$store.dispatch("concert/openDetails", {});
       this.$router.push(`concert/add-concert`);
     },
     deleteConcert: function(id) {

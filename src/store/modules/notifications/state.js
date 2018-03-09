@@ -1,9 +1,11 @@
 export default function () {
   return {
-    namespaced: true,
-    channel: null,
+    channels: [],
     messages: {},
-    idsActive: [],
+    activeMessages: {},
+    timeoutActive: {
+      'default': 1000
+    },
     showType: 'ALL',
     hide: true
   }

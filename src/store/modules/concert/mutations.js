@@ -1,26 +1,29 @@
 import * as mt from '../../mutation_types'
 
 export default {
-  [mt.ON_OPEN](state, id) {
+  [mt.ON_SETUP](state) {
+    state = { ...state
+    }
+  },
+  [mt.ON_OPEN](state, concert) {
     state.active = {
-      ...state.concerts[id]
+      ...concert
     }
   },
   [mt.ON_CLOSE](state) {
-    state.active = null
+    state.active = {}
   },
   [mt.ON_FIELD_UPDATE](state, [field, value]) {
-    const hasChanged = state.concerts[state.active.id][field] ===  value
     state.active = {
       ...state.active,
       [field]: value,
-      hasChanged: hasChanged
+      hasChanged: true
     }
   },
   [mt.ON_OBJECT_CREATE](state) {
     state.active = {
       id: Date.now(),
-      date: new Date(),
+      date: new Date().toDateString(),
       venue: '',
       city: '',
       info: '',
@@ -28,12 +31,14 @@ export default {
     }
   },
   [mt.ON_OBJECT_UPDATE](state) {
-    state.concerts[state.active.id] = {...state.active}
+    state.concerts[state.active.id] = { ...state.active
+    }
     state.saved = false
   },
   [mt.ON_OBJECT_DELETE](state, id) {
     delete state.concerts[id]
-    state.concerts = {...state.concerts}
+    state.concerts = { ...state.concerts
+    }
     state.deletedIds = [...state.deletedIds, id]
     state.saved = false
   },

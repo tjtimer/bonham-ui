@@ -1,5 +1,5 @@
 <template lang="pug">
-  #concert-details(@click.stop="close")
+  #concert-details
     article.card
       h1 concert details
       button(type="button" name="close" @click.stop="close")
@@ -23,18 +23,20 @@
         p.id.small.right id: {{ concert.active.id }}
       button(type="button" name="save" @click.stop="save" :disabled="!concert.active.hasChanged" )
         span save
-      button(type="button" name="cancel" @click.stop="cancel" :disabled="!concert.active.hasChanged" )
+      button(type="button" name="cancel" @click.stop="cancel" )
         span cancel
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
 import { XSquare } from "vue-feather-icon";
 import SimpleInput from "../input/SimpleInput";
+import SimpleSelect from "../input/SimpleSelect";
 export default {
   name: "concert-details",
   components: {
     "x-square-icon": XSquare,
-    "simple-input": SimpleInput
+    "simple-input": SimpleInput,
+    "simple-select": SimpleSelect
   },
   computed: {
     ...mapState(["concert"])
@@ -54,12 +56,9 @@ export default {
       this.$store.dispatch("concert/saveObject");
       this.$router.push("/concert");
     },
-    close(e) {
-      const el = e.target;
-      if (el.id === "concert-details" || el.name === "close") {
-        this.$store.dispatch("concert/closeDetails");
-        this.$router.push("/concert");
-      }
+    close() {
+      this.$store.dispatch("concert/closeDetails");
+      this.$router.push("/concert");
     }
   }
 };

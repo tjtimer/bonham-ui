@@ -5,31 +5,33 @@ import {
   warningReceiver,
   errorReceiver
 } from '../../channels'
-import { wait } from '../../utils'
+import {
+  wait
+} from '../../utils'
 
 
 export default {
   async setup(store) {
     console.log("initializing async insanity! :D", store)
-    const receiver = await Promise.all([
-      debugReceiver.setup(store, this.handleMessage),
-      infoReceiver.setup(store, this.handleMessage),
-      warningReceiver.setup(store, this.handleMessage),
-      errorReceiver.setup(store, this.handleMessage)
+    const channels = await Promise.all([
+      debugReceiver.setup(store, 'handleMessage'),
+      infoReceiver.setup(store, 'handleMessage'),
+      warningReceiver.setup(store, 'handleMessage'),
+      errorReceiver.setup(store, 'handleMessage')
     ])
-    console.log("showing receiver: ", receiver)
-    store.commit(mt.ON_SETUP, receiver)
+    console.log("showing receiver: ", channels)
+    store.commit(mt.ON_SETUP, channels)
   },
-  async handleMessage(store, message) {
+  async handleMessage(store, [topic, message]) {
     console.log("received message: ", message)
     store.commit(mt.ON_RECEIVE, message)
-    await wait(500)
+    await wait(store.state.timeoutActive[topic] || store.state.timeoutActive.default)
     console.log("closing active message: ", message)
-    store.commit(mt.ON_CLOSE, message.id)
+    store.commit(mt.ON_CLOSE, [topic, message.id])
   },
   async shutdown(store) {
-    store.state.channels.map(channel=>channel.close)
-    await Promise.all(store.state.channels.map(async channel=>channel.done))
+    store.state.channels.map(channel => channel.close)
+    await Promise.all(store.state.channels.map(async channel => channel.done))
     console.log("shutdown success!", store.state)
   }
 }

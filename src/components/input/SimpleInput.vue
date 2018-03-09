@@ -57,15 +57,15 @@ export default {
       this.edit = !this.edit;
     },
     saveValue: function() {
-      this.$emit('onSave', this.changedValue)
-      this.toggleEdit()
+      this.$emit("onSave", this.changedValue);
+      this.toggleEdit();
     }
   },
-  beforeMount: function() {
-    if (this.type === 'checkbox') {
-      this.changedValue = this.checked 
+  created() {
+    if (this.type === "checkbox") {
+      this.changedValue = this.checked;
     } else {
-      this.changedValue = this.value 
+      this.changedValue = this.value;
     }
   }
 };
@@ -78,8 +78,9 @@ export default {
   justify-content: space-between;
   align-items: stretch;
   padding: 6px 3px;
-  &.edit {}
-
-  &.read {}
+  label {
+    font-weight: 700;
+    font-style: italic;
+  }
 }
 </style>

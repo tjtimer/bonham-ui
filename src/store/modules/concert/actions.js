@@ -1,15 +1,19 @@
 import * as mt from '../../mutation_types'
+import {
+  warningReceiver
+} from '../../channels'
 
 export default {
   async setup(store) {
     store.commit(mt.ON_SETUP)
   },
-  async openDetails(store, index) {
-    store.commit(mt.ON_OPEN, index)
+  async openDetails(store, concert) {
+    await warningReceiver.put("opening concert details!")
+    store.commit(mt.ON_OPEN, concert)
   },
-  async closeDetails(store, discard=false) {
+  async closeDetails(store, discard = false) {
     console.log("close: ");
-    if (discard===false && store.state.active.hasChanged === true) {
+    if (discard === false && store.state.active.hasChanged === true) {
       await store.dispatch('discardOrSave')
     }
     store.commit(mt.ON_CLOSE)

@@ -1,10 +1,14 @@
-import  Channel, { STATES } from 'async-csp'
-import { ChannelSubscribeError } from './exceptions'
+import Channel, {
+    STATES
+} from 'async-csp'
+import {
+    ChannelSubscribeError
+} from './exceptions'
 
 export async function wait(delay) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay)
-  })
+    return new Promise(function (resolve) {
+        setTimeout(resolve, delay)
+    })
 }
 
 export default class Receiver extends Channel {
@@ -23,7 +27,7 @@ export default class Receiver extends Channel {
         return this._topic
     }
     get name() {
-      return this._topic + "-" + this._id
+        return this._topic + "-" + this._id
     }
     get isRunning() {
         return this.state === STATES.OPEN
@@ -41,24 +45,27 @@ export default class Receiver extends Channel {
                     isRunning=${this._isRunning}>`
     }
     async setup(store, handler) {
-      this._store = store
-      this._handler = handler
-      this.state = STATES.OPEN
-      this._run()
-      return this
+        this._store = store
+        this._handler = handler
+        this.state = STATES.OPEN
+        this._run()
+        return this
     }
     async _run() {
-      while (true) {
-        msg = await this.take()
-        if (msg === this.DONE) {
-            return await this._shutdown()
+        while (true) {
+            const msg = {
+                id: Date.now(),
+                message: await this.take()
+            }
+            if (msg.message === this.DONE) {
+                return await this._shutdown()
+            }
+            await this._store.dispatch(this._handler, [this._topic, msg])
         }
-        await this._store.dispatch(this._handler, msg)
-      }
     }
     async _shutdown() {
-      await this._dispatch(CLOSE)
-      await this.done()
-      return this
+        await this._dispatch(CLOSE)
+        await this.done()
+        return this
     }
 }

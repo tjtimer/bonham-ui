@@ -32,7 +32,7 @@ export default function () {
     statusTypes: ['tba', 'requested', 'cancelled', 'published'],
     concertIds: [1, 2, 3],
     deletedIds: [],
-    active: null,
+    active: {},
     saved: true,
     saving: false
   }

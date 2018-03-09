@@ -23,15 +23,9 @@
  *              }
  *          }
  */
+import Receiver from './utils'
 
-const debugReceiver = new Receiver('debug')
-const infoReceiver = new Receiver('info')
-const warningReceiver = new Receiver('warning')
-const errorReceiver = new Receiver('error')
-
-export default {
-    debugReceiver,
-    infoReceiver,
-    warningReceiver,
-    errorReceiver
-}
+export const debugReceiver = new Receiver('debug')
+export const infoReceiver = new Receiver('info')
+export const warningReceiver = new Receiver('warning')
+export const errorReceiver = new Receiver('error')

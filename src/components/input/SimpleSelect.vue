@@ -12,24 +12,24 @@
 </template>
 
 <script>
-import { Check, Edit3, XSquare } from 'vue-feather-icon';
+import { Check, Edit3, XSquare } from "vue-feather-icon";
 export default {
-  name: 'simple-input',
+  name: "simple-input",
   components: {
-    'check-icon': Check,
-    'edit-3-icon': Edit3,
-    'x-square-icon': XSquare
+    "check-icon": Check,
+    "edit-3-icon": Edit3,
+    "x-square-icon": XSquare
   },
   data() {
     return {
-      edit: false,
+      edit: false
     };
   },
   props: {
     title: {
       type: String,
       required: false,
-      default: 'select'
+      default: "select"
     },
     multiple: {
       type: Boolean,
@@ -37,13 +37,13 @@ export default {
       default: false
     },
     options: {
-      type: List[String],
+      type: Array,
       required: true
     },
     value: {
       type: String,
       required: false,
-      default: ''
+      default: ""
     }
   },
   methods: {
@@ -59,16 +59,20 @@ export default {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  align-items: stretch;
+  align-items: space-between;
+  justify-content: space-between;
   padding: 6px 3px;
-  &.read {
+  .read {
     background: #222;
     color: #5af;
   }
 
-  &.edit {
+  .edit {
     background: #5af;
     color: #222;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
   }
 }
 </style>

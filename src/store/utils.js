@@ -1,9 +1,6 @@
 import Channel, {
     STATES
 } from 'async-csp'
-import {
-    ChannelSubscribeError
-} from './exceptions'
 
 export async function wait(delay) {
     return new Promise(function (resolve) {
@@ -65,7 +62,6 @@ export default class Receiver extends Channel {
         }
     }
     async _shutdown() {
-        await this._dispatch(CLOSE)
         await this.done()
         return this
     }

@@ -33,7 +33,6 @@ export default {
     store.commit(mt.ON_OBJECT_DELETE, id);
   },
   async updateField(store, [field, value]) {
-    console.log(`update ${field}: ${value}`);
     store.commit(mt.ON_FIELD_UPDATE, [field, value]);
   }
 };

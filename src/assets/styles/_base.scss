@@ -55,6 +55,9 @@ li {
 
 .row {
   flex-flow: row wrap;
+  &.no-wrap {
+    flex-flow: nowrap;
+  }
 }
 
 .column {

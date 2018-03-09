@@ -1,7 +1,7 @@
 <template lang="pug">
-  #active-notes
+  #active-notes(v-if="notifications.activeNoteIds.length > 0")
     ul.column
-      li(v-if="notifications.activeNoteIds.length > 0" v-for="note in activeNotes")
+      li(v-for="note in activeNotes")
         .note.column(:class="note.topic")
           h4 {{ note.message }}
         .options.row

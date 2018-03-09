@@ -28,7 +28,7 @@ export default {
     const request = {
       method: 'put',
       url: '/logout',
-      withCredentials: no
+      withCredentials: false
     }
     await store.dispatch('sendAuthRequest', request)
   },
@@ -41,19 +41,10 @@ export default {
   async discardOrSave(store) {
     console.log("discardOrSave")
   },
-  async saveAccount(store) {
-    console.log("save account")
+  async saveObject(store) {
+    store.commit(mt.ON_OBJECT_UPDATE);
   },
-  async saveName(store, e) {
-    console.log("save name: ", e);
-    store.commit(mt.ON_FIELD_UPDATE, ['name', e])
-  },
-  async saveEmail(store, e) {
-    console.log("save email: ", e);
-    store.commit(mt.ON_FIELD_UPDATE, ['email', e])
-  },
-  async saveAvatarURL(store, e) {
-    console.log("save avatar URL: ", e);
-    store.commit(mt.ON_FIELD_UPDATE, ['avatarURL', e])
+  async updateField(store, [field, value]) {
+    store.commit(mt.ON_FIELD_UPDATE, [field, value]);
   }
 }

@@ -31,6 +31,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 #app-header {
+  display: flex;
+  width: 100%;
   nav {
     display: block;
     width: 100%;

@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app(:class="app.isReady ? `ready ${layout}` : 'loading'")
+  #app.column(:class="app.isReady ? `ready ${layout}` : 'loading'")
     app-header
     router-view
     active-notes
@@ -28,7 +28,7 @@ export default {
 <style lang="scss">
 @import "./assets/styles/_base";
 #app {
-  transition: all 2s;
+  transition: all 1s;
   &.loading {
     background-color: #fff;
     color: #fff;

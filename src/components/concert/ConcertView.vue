@@ -1,7 +1,7 @@
 <template lang="pug">
   #concert-view
     h1 concert
-    ul.column.upcoming
+    ul.upcoming.column.ai-stretch
       li(v-for="concert, index in concert.concerts")
         a.concert-details-link(:class="concert.status" @click.prevent="openDetails(concert)")
           ul.row
@@ -49,35 +49,26 @@ export default {
 <style lang="scss" scoped>
 #concert-view {
   border: 1px solid yellow;
-  .concert-details-link {
-    background: #05a6a6;
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-    &:hover {
-      background: adjust-hue($color: #05a6f6, $degrees: -15);
-      color: adjust-hue($color: rgb(253, 129, 5), $degrees: -45);
+  .cancelled {
+    text-decoration: line-through;
+    position: relative;
+    &::after {
+      content: " - cancelled - ";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      display: block;
+      color: red;
+      background: rgba(#666, 0.5);
+      text-transform: uppercase;
+      text-align: center;
+      width: 100%;
     }
-    &.cancelled {
-      text-decoration: line-through;
-      position: relative;
-      &::after {
-        content: " - cancelled - ";
-        position: absolute;
-        top: 0.3rem;
-        left: 0;
-        display: block;
-        color: red;
-        background: rgba(#666, 0.5);
-        text-transform: uppercase;
-        text-align: center;
-        width: 100%;
-      }
-    }
-    &.requested {
-      color: #00ffff;
-      background: rgba(255, 166, 0, 0.308);
-    }
+  }
+  .requested {
+    color: #00ffff;
+    background: rgba(255, 166, 0, 0.308);
   }
 }
 </style>
